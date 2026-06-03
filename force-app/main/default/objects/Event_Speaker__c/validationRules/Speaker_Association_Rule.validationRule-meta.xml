@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Speaker_Association_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+    Event__r.Live__c = FALSE,
+    DATEVALUE(Event__r.End__c) &lt;= TODAY()
+)</errorConditionFormula>
+    <errorMessage>Speaker can be assigned only when the Event is Live and the End Date is in the future.</errorMessage>
+</ValidationRule>

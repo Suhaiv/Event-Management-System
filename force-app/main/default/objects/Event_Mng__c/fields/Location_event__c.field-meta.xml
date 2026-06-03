@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Location_event__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Location(event)</label>
+    <referenceTo>Location_event__c</referenceTo>
+    <relationshipLabel>Event-Mngs</relationshipLabel>
+    <relationshipName>Event_Mngs</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

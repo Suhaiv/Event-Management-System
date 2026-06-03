@@ -1,0 +1,73 @@
+<template>
+    <lightning-card title="Event Details">
+
+        <lightning-tabset>
+
+            <!-- EVENT DETAILS (LDS) -->
+            <lightning-tab label="Event Details">
+                <lightning-record-view-form
+                    record-id={recordId}
+                    object-api-name="Event_Mng__c">
+
+                    <lightning-output-field field-name="Name"></lightning-output-field>
+                    <lightning-output-field field-name="Status__c"></lightning-output-field>
+                    <lightning-output-field field-name="Start__c"></lightning-output-field>
+                    <lightning-output-field field-name="End__c"></lightning-output-field>
+                    <lightning-output-field field-name="Max_Seats__c"></lightning-output-field>
+                    <lightning-output-field field-name="Organizer__c"></lightning-output-field>
+
+                </lightning-record-view-form>
+            </lightning-tab>
+
+            <!-- SPEAKER DETAILS -->
+             <lightning-tab label="Speaker Details">
+
+                <lightning-button
+                    label="New Speaker"
+                    variant="brand"
+                    class="slds-m-bottom_small"
+                    onclick={handleNewSpeaker}>
+                </lightning-button>
+
+                <lightning-datatable
+                    key-field="Id"
+                    data={speakers}
+                    columns={speakerColumns}>
+                </lightning-datatable>
+
+            </lightning-tab>
+
+            <!-- LOCATION DETAILS -->
+            <lightning-tab label="Location Details">
+                <template if:true={location}>
+                    <p><b>Name:</b> {location.Name}</p>
+                    <p><b>Street:</b> {location.Street__c}</p>
+                    <p><b>City:</b> {location.City__c}</p>
+                    <p><b>State:</b> {location.State__c}</p>
+                    <p><b>Postal Code:</b> {location.Postal_Code__c}</p>
+                    <p><b>Verified:</b> {location.Verified__c}</p>
+                </template>
+            </lightning-tab>
+
+            <!-- ATTENDEES DETAILS -->
+            <lightning-tab label="Attendees Details">
+
+                <lightning-button
+                    label="New Attendee"
+                    variant="brand"
+                    class="slds-m-bottom_small"
+                    onclick={handleNewAttendee}>
+                </lightning-button>
+
+                <lightning-datatable
+                    key-field="Id"
+                    data={attendees}
+                    columns={attendeeColumns}>
+                </lightning-datatable>
+
+            </lightning-tab>
+
+        </lightning-tabset>
+
+    </lightning-card>
+</template>

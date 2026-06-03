@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Create A Event Record " icon-name="action:new_event">
+        <div class="slds-m-horizontal_xx-large">
+        <lightning-record-edit-form  object-api-name={objectApiName} density="compact" >
+
+           
+
+            <lightning-input-field field-name={fieldName}></lightning-input-field>
+            <lightning-input-field field-name={fieldOrganizer}></lightning-input-field>
+            <lightning-input-field field-name={fieldStart}></lightning-input-field>
+            <lightning-input-field field-name={fieldEnd}></lightning-input-field>
+             <lightning-input-field field-name={fieldLocation} data-id="amount"></lightning-input-field>
+              <lightning-input-field field-name={fieldMaxseat}></lightning-input-field>
+
+            
+    <div>
+        <button class="button" onclick={click}> Submit</button>
+    </div>
+        </lightning-record-edit-form>
+        </div>
+    </lightning-card>
+</template>

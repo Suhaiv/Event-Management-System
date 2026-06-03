@@ -1,0 +1,46 @@
+<template>
+
+    <lightning-card title="Upcoming Live Events" icon-name="standard:event" >
+<div class="slds-m-horizontal_large">
+        <div class="slds-p-around_medium ">
+
+            <lightning-layout multiple-rows>
+
+                <lightning-layout-item size="10">
+
+                    <lightning-input
+                        type="search"
+                        label="Search Event"
+                        placeholder="Search by Event Name or Location"
+                        value={searchKey}
+                        onchange={handleSearch}>
+                    </lightning-input>
+
+                </lightning-layout-item>
+
+                <lightning-layout-item
+                    size="2"
+                    class="slds-p-top_large slds-p-left_small">
+
+                    <lightning-button class="slds-m-horizontal_large slds-m-top_xx-large"
+                        label="Search"
+                        variant="brand"
+                        onclick={searchEvents}>
+                    </lightning-button>
+
+                </lightning-layout-item>
+
+            </lightning-layout>
+
+        </div>
+
+        <lightning-datatable
+            key-field="Id"
+            data={eventData}
+            columns={columns}
+            hide-checkbox-column>
+        </lightning-datatable>
+</div>
+    </lightning-card>
+
+</template>

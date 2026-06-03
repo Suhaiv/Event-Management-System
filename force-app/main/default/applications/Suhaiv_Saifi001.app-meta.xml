@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>Eventmanagementlogoscaled</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Intelligent Event Coordination Platform</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>Error_Log__c</tabs>
+    <tabs>Location_event__c</tabs>
+    <tabs>Event_Organizer__c</tabs>
+    <tabs>Event_Mng__c</tabs>
+    <tabs>Attendees__c</tabs>
+    <tabs>Speaker__c</tabs>
+    <tabs>Event_Speaker__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Event_Management_UtilityBar</utilityBar>
+</CustomApplication>

@@ -1,0 +1,35 @@
+<template>
+    <lightning-card>
+        <div class="slds-media slds-p-around_medium">
+
+            <!-- Profile Image -->
+            <div class="slds-media__figure">
+                <img
+                    src={profileUrl}
+                    alt="Speaker"
+                    class="profile-img"
+                />
+            </div>
+
+            <!-- Speaker Info -->
+            <div class="slds-media__body">
+                <h2 class="slds-text-heading_medium">{name}</h2>
+
+                <p class="slds-text-body_small">
+                    📧 {email}
+                </p>
+
+                <p class="slds-text-body_small">
+                    📞 {phone}
+                </p>
+
+                <div class="slds-m-top_small">
+                    <lightning-formatted-rich-text
+                        value={aboutMe}>
+                    </lightning-formatted-rich-text>
+                </div>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>
