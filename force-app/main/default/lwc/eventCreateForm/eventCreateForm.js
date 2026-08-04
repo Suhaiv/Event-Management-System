@@ -7,6 +7,8 @@ import START_Object from '@salesforce/schema/Event_Mng__c.Start__c';
 import END_Object from '@salesforce/schema/Event_Mng__c.End__c';
 import LOCATION_Object from '@salesforce/schema/Event_Mng__c.Location_event__c';
 import MAXSEAT_Object from '@salesforce/schema/Event_Mng__c.Max_Seats__c';
+import LIVE_Object from '@salesforce/schema/Event_Mng__c.Live__c';
+import EVENTTYPE_Object from '@salesforce/schema/Event_Mng__c.Event_Type__c';
 
 export default class CreateRecordOnPlayers extends LightningElement {
 
@@ -17,10 +19,8 @@ export default class CreateRecordOnPlayers extends LightningElement {
     fieldEnd = END_Object;
     fieldLocation = LOCATION_Object;
     fieldMaxseat = MAXSEAT_Object;
-   // hello
-   // hello
-
-   
+    fieldLive = LIVE_Object;
+    fieldEventType = EVENTTYPE_Object;
 
     outsideClickEnabled = false; 
 
