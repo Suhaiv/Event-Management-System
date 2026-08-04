@@ -8,3 +8,38 @@
     margin: 0 35%;
     font-size: large;
 }
+.form-container {
+    padding: 20px 60px;
+}
+
+.customLabel {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #403a3a;
+    margin-bottom: 8px;
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+.button {
+    background: #0176d3;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #005fb2;
+}
+:host {
+    --slds-c-card-heading-font-size: 24px;
+    --slds-c-card-heading-font-weight: 700;
+}
