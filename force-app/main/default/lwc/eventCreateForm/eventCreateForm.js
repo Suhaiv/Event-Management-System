@@ -17,7 +17,8 @@ export default class CreateRecordOnPlayers extends LightningElement {
     fieldEnd = END_Object;
     fieldLocation = LOCATION_Object;
     fieldMaxseat = MAXSEAT_Object;
-   
+   // hello
+   // hello
 
    
 
