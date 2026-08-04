@@ -18,9 +18,10 @@ const COLUMNS = [
         fieldName: 'Start__c',
         type: 'date'
     },
-    {
-        label: 'Status',
-        fieldName: 'Status__c',
+    
+     {
+        label: 'Event Type',
+        fieldName: 'Event_Type__c',
         type: 'text'
     },
     {
@@ -57,6 +58,7 @@ export default class EventList extends LightningElement {
                     eventName: row.Name__c,
                     Start__c: row.Start__c,
                     Status__c: row.Status__c,
+                    Event_Type__c: row.Event_Type__c,
                     locationName: row.Location_event__r
                         ? row.Location_event__r.Name
                         : ''
