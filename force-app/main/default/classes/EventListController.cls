@@ -10,7 +10,8 @@ public with sharing class EventListController {
                 SELECT Id,
                        Name__c,
                        Start__c,
-                       Status__c,
+                       
+                       Event_Type__c,
                        Live__c,
                        Location_event__r.Name
                 FROM Event_Mng__c
@@ -24,7 +25,8 @@ public with sharing class EventListController {
             SELECT Id,
                    Name__c,
                    Start__c,
-                   Status__c,
+                   
+                   Event_Type__c,
                    Live__c,
                    Location_event__r.Name
             FROM Event_Mng__c
