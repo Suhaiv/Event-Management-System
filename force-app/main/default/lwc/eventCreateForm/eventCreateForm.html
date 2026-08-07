@@ -1,8 +1,11 @@
 <template>
     <lightning-card title="Create A Event Record" icon-name="action:new_event">
         <div class="form-container">
-
-            <lightning-record-edit-form object-api-name={objectApiName} density="compact">
+              <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Saving..." size="large">
+            </lightning-spinner>
+            </template>
+            <lightning-record-edit-form object-api-name={objectApiName} density="compact" onsuccess={handleSuccess} onerror={handleError}>
 
                 <div class="field">
                     <label class="customLabel">Name</label>
@@ -39,18 +42,16 @@
                 </div>
                  
                 <div class="field">
-                   <label class="customLabel">Event Type</label>
-                   <lightning-input-field field-name={fieldEventType} variant="label-hidden"></lightning-input-field>
+                    <label class="customLabel">Event Type</label>
+                    <lightning-input-field field-name={fieldEventType} variant="label-hidden"></lightning-input-field>
                 </div>
                 
                 <div class="field">
                     <label class="customLabel">Live</label>
                     <lightning-input-field field-name={fieldLive} variant="label-hidden"></lightning-input-field>
                 </div>
-
-                <div class="slds-m-top_medium">
-                    <button class="button" onclick={click}>Submit</button>
-                </div>
+                
+                <lightning-button label="Submit" variant="brand" onclick={click}></lightning-button>
 
             </lightning-record-edit-form>
 

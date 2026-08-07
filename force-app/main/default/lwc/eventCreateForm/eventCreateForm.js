@@ -21,6 +21,9 @@ export default class CreateRecordOnPlayers extends LightningElement {
     fieldMaxseat = MAXSEAT_Object;
     fieldLive = LIVE_Object;
     fieldEventType = EVENTTYPE_Object;
+    isLoading = false;
+
+
 
     outsideClickEnabled = false; 
 
@@ -60,13 +63,25 @@ export default class CreateRecordOnPlayers extends LightningElement {
             'lightning-input-field[data-id="amount"]'
         );
 
-        const amountValue = fieldLocation?.value;
-
-        if (!amountValue) {
+        if (!fieldLocation.value) {
             this.showErrorToast();
-        } else {
-            this.showSuccessToast();
+            return;
         }
+
+        this.isLoading = true;
+
+        setTimeout(() => {
+
+            const form = this.template.querySelector('lightning-record-edit-form');
+            const fields = {};
+
+            this.template.querySelectorAll('lightning-input-field').forEach(field => {
+                fields[field.fieldName] = field.value;
+            });
+
+            form.submit(fields);
+        }, 2000);
+
     }
 
     showSuccessToast() {
@@ -89,4 +104,41 @@ export default class CreateRecordOnPlayers extends LightningElement {
             })
         );
     }
+    handleSuccess() {
+
+        this.isLoading = false;
+
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Success',
+                message: 'Record Created Successfully',
+                variant: 'success'
+            })
+        );
+
+        this.template
+            .querySelectorAll('lightning-input-field')
+            .forEach(field => {
+                field.reset();
+            });
+        setTimeout(() => {
+            window.location.reload();
+        }, 500);
+    }
+    handleError(event) {
+
+        this.isLoading = false;
+
+        console.log(JSON.stringify(event.detail));
+
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Error',
+                message: event.detail.detail || event.detail.message,
+                variant: 'error',
+                mode: 'sticky'
+            })
+        );
+    }
+
 }
