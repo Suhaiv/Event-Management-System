@@ -73,13 +73,7 @@ export default class CreateRecordOnPlayers extends LightningElement {
         setTimeout(() => {
 
             const form = this.template.querySelector('lightning-record-edit-form');
-            const fields = {};
-
-            this.template.querySelectorAll('lightning-input-field').forEach(field => {
-                fields[field.fieldName] = field.value;
-            });
-
-            form.submit(fields);
+            form.submit();
         }, 2000);
 
     }
