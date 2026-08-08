@@ -1,21 +1,26 @@
-:host{
-    display:block;
+:host {
+    display: block;
 }
 
-lightning-card{
-    overflow:visible;
-    border-radius:18px;
+lightning-card {
+    overflow: visible;
+    border-radius: 18px;
 }
 
-/* Form Card */
-.form-container{
-    background: linear-gradient(180deg,#ffffff 0%,#ebf3f6 100%);
-    padding:30px;
-    border-radius:0 0 15px 15px;
-    overflow:visible;
-    position:relative;
+/* =========================
+   Form Card
+========================= */
+.form-container {
+    background: linear-gradient(180deg, #ffffff 0%, #ebf3f6 100%);
+    padding: 30px;
+    border-radius: 0 0 15px 15px;
+    overflow: visible;
+    position: relative;
 }
 
+/* =========================
+   Labels
+========================= */
 .customLabel {
     display: block;
     font-size: 20px;
@@ -25,52 +30,42 @@ lightning-card{
     letter-spacing: 0.3px;
 }
 
+/* =========================
+   Fields
+========================= */
 .field {
     margin-bottom: 22px;
 }
 
-/* Left Section */
+/* =========================
+   Left Section
+========================= */
 .left-section {
     border-right: 2px solid #d2d2d2;
     padding-right: 30px;
     min-height: 340px;
 }
 
-/* Right Section */
+/* =========================
+   Right Section
+========================= */
 .right-section {
     padding-left: 30px;
 }
 
-/* Submit Button Area */
-.slds-align_absolute-center {
-    margin-top: 30px;
+/* =========================
+   Main Card
+========================= */
+.main-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: visible;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Spinner Background */
-.spinner-container {
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-}
-
-/* Mobile Responsive */
-@media screen and (max-width:768px) {
-
-    .left-section {
-        border-right: 1px solid #d8dde6;
-        padding-right: 25px;
-        min-height: auto;
-    }
-
-    .right-section {
-        padding-left: 25px;
-    }
-
-}
+/* =========================
+   Header
+========================= */
 .header {
     display: flex;
     align-items: center;
@@ -89,6 +84,9 @@ lightning-card{
     color: #0d3a7c;
 }
 
+/* =========================
+   Header Icon
+========================= */
 .header-icon {
     width: 55px;
     height: 55px;
@@ -102,12 +100,12 @@ lightning-card{
     cursor: pointer;
 }
 
-/* Hover Effect */
 .header-icon:hover {
     transform: translateY(-5px) scale(1.12) rotate(8deg);
     box-shadow: 0 15px 35px rgba(255, 91, 138, 0.5);
     background: linear-gradient(135deg, #ff416c, #ff9a44);
 }
+
 .header-icon lightning-icon {
     transition: transform 0.35s ease;
 }
@@ -115,42 +113,127 @@ lightning-card{
 .header-icon:hover lightning-icon {
     transform: rotate(-8deg) scale(1.15);
 }
-.main-card{
-    background:#fff;
-    border-radius:18px;
-    overflow:visible;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
+
+/* =========================
+   Buttons Area
+========================= */
 .submit-btn {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 15px;
     margin-top: 35px;
 }
 
-.createButton{
-    width:250px;
-    height:45px;
-    background:linear-gradient(135deg,#0eb7f9,#0684f3);
-    border:none;
-    border-radius:35px;
-    color:#fff;
-    font-size:18px;
-    font-weight:700;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:12px;
-    cursor:pointer;
+/* =========================
+   Common Button
+========================= */
+.createButton,
+.cancelButton {
+    min-width: 180px;
+    height: 45px;
+    border: none;
+    border-radius: 35px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
 }
 
-.plus-icon{
-    color:#FFD700;      /* Gold Color */
-    font-size:35px;     /* Increase Size */
-    font-weight:bold;
-    line-height:1;
+/* =========================
+   Create Event Button
+========================= */
+.createButton {
+    background: linear-gradient(135deg, #0eb7f9, #0684f3);
 }
+
 .createButton:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(1, 118, 211, 0.35);
     background: linear-gradient(135deg, #0284f5, #0066cc);
+}
+
+/* =========================
+   Cancel Button
+========================= */
+.cancelButton {
+    background: linear-gradient(135deg, #ff4d4d, #d90000);
+}
+
+.cancelButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(217, 0, 0, 0.35);
+    background: linear-gradient(135deg, #e60000, #b30000);
+}
+
+/* =========================
+   Icons
+========================= */
+.plus-icon {
+    color: #ffd700;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.cancel-icon {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* =========================
+   Spinner Background
+========================= */
+.spinner-container {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+/* =========================
+   Mobile Responsive
+========================= */
+@media screen and (max-width: 768px) {
+
+    .left-section {
+        border-right: none;
+        border-bottom: 1px solid #d8dde6;
+        padding-right: 0;
+        padding-bottom: 20px;
+        min-height: auto;
+    }
+
+    .right-section {
+        padding-left: 0;
+        padding-top: 20px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .submit-btn {
+        flex-direction: column;
+    }
+
+    .createButton,
+    .cancelButton {
+        width: 100%;
+        max-width: 250px;
+    }
 }
