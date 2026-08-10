@@ -1,0 +1,130 @@
+/* Main details area */
+.details-container {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+	margin: 10px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+
+/* Each row */
+.detail-row {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 14px;
+
+    border-bottom: 1px solid #e5e5e5;
+
+    font-size: 12px;
+}
+
+
+/* Remove border from last row */
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+
+/* Left side */
+.detail-left {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: #444;
+    font-weight: 400;
+}
+
+
+/* Icons */
+.detail-left lightning-icon {
+    --slds-c-icon-color-foreground-default: #666;
+}
+
+
+/* Right value */
+.detail-value {
+    text-align: right;
+    color: #181818;
+    font-weight: 400;
+}
+
+
+/* Organizer */
+.organizer-value {
+    color: #0b5cab;
+    font-weight: 500;
+}
+
+
+/* Status badge */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 2px 9px;
+    border-radius: 12px;
+
+    background: #f9d99b;
+    color: #5f4200;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* Verified badge */
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 2px 9px;
+    border-radius: 12px;
+
+    background: #baf3c2;
+    color: #126b24;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* False badge */
+.not-verified-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 2px 9px;
+    border-radius: 12px;
+
+    background: #f5c2c7;
+    color: #842029;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* Speaker / Attendee content */
+.tab-content {
+    padding: 8px 0;
+	margin: 15px;
+}
+
+
+.datatable-container {
+    margin-top: 12px;
+}
+
+
+/* Empty message */
+.empty-message {
+    padding: 25px;
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+}
