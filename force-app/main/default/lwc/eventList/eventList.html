@@ -1,46 +1,130 @@
 <template>
 
-    <lightning-card title="Upcoming Live Events" icon-name="standard:event" >
-<div class="slds-m-horizontal_large">
-        <div class="slds-p-around_medium ">
+    <lightning-card>
 
-            <lightning-layout multiple-rows>
+        <!-- Upcoming Header -->
+        <div class="upcoming-header">
 
-                <lightning-layout-item size="10">
+            <div class="upcoming-icon">
+                <lightning-icon
+                    icon-name="standard:event"
+                    size="small"
+                    alternative-text="Upcoming Events">
+                </lightning-icon>
+            </div>
 
-                    <lightning-input
-                        type="search"
-                        label="Search Event"
-                        placeholder="Search by Event Name or Location"
-                        value={searchKey}
-                        onchange={handleSearch}>
-                    </lightning-input>
-
-                </lightning-layout-item>
-
-                <lightning-layout-item
-                    size="2"
-                    class="slds-p-top_large slds-p-left_small">
-
-                    <lightning-button class="slds-m-horizontal_large slds-m-top_xx-large"
-                        label="Search"
-                        variant="brand"
-                        onclick={searchEvents}>
-                    </lightning-button>
-
-                </lightning-layout-item>
-
-            </lightning-layout>
+            <div>
+                <h2>Upcoming live events</h2>
+                <template if:true={hasEvents}>
+                    <p class="subheading">{totalEvents} events scheduled across {locationSummary}</p>
+                </template>
+                <template if:false={hasEvents}>
+                    <p class="subheading">No live events scheduled</p>
+                </template>
+            </div>
 
         </div>
 
-        <lightning-datatable
-            key-field="Id"
-            data={eventData}
-            columns={columns}
-            hide-checkbox-column>
-        </lightning-datatable>
+        <div class="event-container">
+
+            <!-- Stats -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <p class="stat-label">Total events</p>
+                    <p class="stat-value">{totalEvents}</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">This week</p>
+                    <p class="stat-value">{thisWeekCount}</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">In-person</p>
+                    <p class="stat-value">{inPersonCount}</p>
+                </div>
+            </div>
+
+            <div class="search-section">
+
+    <div class="search-input">
+
+        <div class="search-label">
+            Search Event
+        </div>
+
+        <div class="input-wrapper">
+
+            <lightning-icon
+                icon-name="utility:search"
+                size="x-small"
+                alternative-text="Search">
+            </lightning-icon>
+
+            <input
+                type="search"
+                class="custom-input"
+                placeholder="Search by event name or location"
+                value={searchKey}
+                oninput={handleSearch}>
+            
+
+        </div>
+
+    </div>
+
+
+<button
+    class="custom-search-button"
+    onclick={searchEvents}>
+
+    <lightning-icon
+        class="search-button-icon"
+        icon-name="utility:search"
+        size="x-small"
+        alternative-text="Search">
+    </lightning-icon>
+
+    <span>Search</span>
+
+</button>
+
 </div>
+
+            <!-- Event Rows -->
+            <div class="table-container">
+                <template for:each={eventData} for:item="event">
+                    <div class="event-row" key={event.Id}>
+
+                        <div class="row-icon" style={event.iconBg}>
+                            <lightning-icon
+                                icon-name={event.iconName}
+                                size="x-small">
+                            </lightning-icon>
+                        </div>
+
+                        <a href={event.recordUrl} class="event-name">{event.eventName}</a>
+
+                        <span class="event-date">
+                            <lightning-icon icon-name="utility:date_input" size="xx-small"></lightning-icon>
+                            {event.formattedDate}
+                        </span>
+
+                        <span class={event.badgeClass}>{event.Event_Type__c}</span>
+
+                        <span class="event-location">
+                            <lightning-icon icon-name="utility:location" size="xx-small"></lightning-icon>
+                            {event.locationName}
+                        </span>
+
+                    </div>
+                </template>
+
+                <template if:false={hasEvents}>
+                    <div class="empty-state">No events found.</div>
+                </template>
+            </div>
+
+        </div>
+
     </lightning-card>
 
 </template>
