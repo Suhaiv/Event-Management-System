@@ -1,73 +1,314 @@
 <template>
-    <lightning-card title="Event Details">
+<lightning-card>
 
-        <lightning-tabset>
+    <lightning-tabset>
 
-            <!-- EVENT DETAILS (LDS) -->
-            <lightning-tab label="Event Details">
-                <lightning-record-view-form
-                    record-id={recordId}
-                    object-api-name="Event_Mng__c">
+        <!-- ================= EVENT DETAILS ================= -->
+        <lightning-tab label="Event Details">
 
-                    <lightning-output-field field-name="Name"></lightning-output-field>
-                    <lightning-output-field field-name="Status__c"></lightning-output-field>
-                    <lightning-output-field field-name="Start__c"></lightning-output-field>
-                    <lightning-output-field field-name="End__c"></lightning-output-field>
-                    <lightning-output-field field-name="Max_Seats__c"></lightning-output-field>
-                    <lightning-output-field field-name="Organizer__c"></lightning-output-field>
+            <div class="details-container">
 
-                </lightning-record-view-form>
-            </lightning-tab>
+                <!-- Event -->
+                <div class="detail-row">
+                    <div class="detail-left">
+                        <lightning-icon
+                            icon-name="action:log_event"
+                            size="xx-small"
+                            alternative-text="Event">
+                        </lightning-icon>
+                        <span>Event</span>
+                    </div>
 
-            <!-- SPEAKER DETAILS -->
-             <lightning-tab label="Speaker Details">
+                    <div class="detail-value">
+                        <lightning-formatted-text
+                            value={eventName}>
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="detail-row">
+                    <div class="detail-left">
+                        <lightning-icon
+                            icon-name="action:share_poll"
+                            size="xx-small"
+                            alternative-text="Status">
+                        </lightning-icon>
+                        <span>Status</span>
+                    </div>
+
+                    <div class="detail-value">
+                        <span class="status-badge">
+                            {eventStatus}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Start -->
+                <div class="detail-row">
+                    <div class="detail-left">
+                        <lightning-icon
+                            icon-name="action:new_custom8"
+                            size="xx-small"
+                            alternative-text="Start">
+                        </lightning-icon>
+                        <span>Start</span>
+                    </div>
+
+                    <div class="detail-value">
+                        <lightning-formatted-date-time
+                            value={eventStart}
+                            month="numeric"
+                            day="numeric"
+                            year="numeric"
+                            hour="numeric"
+                            minute="2-digit">
+                        </lightning-formatted-date-time>
+                    </div>
+                </div>
+
+                <!-- End -->
+                <div class="detail-row">
+                    <div class="detail-left">
+                        <lightning-icon
+                            icon-name="action:new_custom7"
+                            size="xx-small"
+                            alternative-text="End">
+                        </lightning-icon>
+                        <span>End</span>
+                    </div>
+
+                    <div class="detail-value">
+                        <lightning-formatted-date-time
+                            value={eventEnd}
+                            month="numeric"
+                            day="numeric"
+                            year="numeric"
+                            hour="numeric"
+                            minute="2-digit">
+                        </lightning-formatted-date-time>
+                    </div>
+                </div>
+
+                <!-- Max Seats -->
+                <div class="detail-row">
+                    <div class="detail-left">
+                        <lightning-icon
+                            icon-name="action:new_custom15"
+                            size="xx-small"
+                            alternative-text="Max seats">
+                        </lightning-icon>
+                        <span>Max seats</span>
+                    </div>
+
+                    <div class="detail-value">
+                        {maxSeats}
+                    </div>
+                </div>
+
+                <!-- Organizer -->
+                <div class="detail-row">
+                    <div class="detail-left">
+                        <lightning-icon
+                            icon-name="action:new_custom24"
+                            size="xx-small"
+                            alternative-text="Organizer">
+                        </lightning-icon>
+                        <span>Organizer</span>
+                    </div>
+
+                    <div class="detail-value organizer-value">
+                        {organizerName}
+                    </div>
+                </div>
+
+            </div>
+
+        </lightning-tab>
+
+
+        <!-- ================= SPEAKER DETAILS ================= -->
+        <lightning-tab label="Speaker Details">
+
+            <div class="tab-content">
 
                 <lightning-button
                     label="New Speaker"
                     variant="brand"
-                    class="slds-m-bottom_small"
                     onclick={handleNewSpeaker}>
                 </lightning-button>
 
-                <lightning-datatable
-                    key-field="Id"
-                    data={speakers}
-                    columns={speakerColumns}>
-                </lightning-datatable>
+                <div class="datatable-container">
+                    <lightning-datatable
+                        key-field="Id"
+                        data={speakers}
+                        columns={speakerColumns}>
+                    </lightning-datatable>
+                </div>
 
-            </lightning-tab>
+            </div>
 
-            <!-- LOCATION DETAILS -->
-            <lightning-tab label="Location Details">
-                <template if:true={location}>
-                    <p><b>Name:</b> {location.Name}</p>
-                    <p><b>Street:</b> {location.Street__c}</p>
-                    <p><b>City:</b> {location.City__c}</p>
-                    <p><b>State:</b> {location.State__c}</p>
-                    <p><b>Postal Code:</b> {location.Postal_Code__c}</p>
-                    <p><b>Verified:</b> {location.Verified__c}</p>
-                </template>
-            </lightning-tab>
+        </lightning-tab>
 
-            <!-- ATTENDEES DETAILS -->
-            <lightning-tab label="Attendees Details">
+
+        <!-- ================= LOCATION DETAILS ================= -->
+        <lightning-tab label="Location Details">
+
+            <template if:true={location}>
+
+                <div class="details-container">
+
+                    <!-- Name -->
+                    <div class="detail-row">
+                        <div class="detail-left">
+                            <lightning-icon
+                                icon-name="action:new_custom78"
+                                size="xx-small"
+                                alternative-text="Name">
+                            </lightning-icon>
+
+                            <span>Name</span>
+                        </div>
+
+                        <div class="detail-value">
+                            {location.Name}
+                        </div>
+                    </div>
+
+                    <!-- Street -->
+                    <div class="detail-row">
+                        <div class="detail-left">
+                            <lightning-icon
+                                icon-name="action:new_custom37"
+                                size="xx-small"
+                                alternative-text="Street">
+                            </lightning-icon>
+
+                            <span>Street</span>
+                        </div>
+
+                        <div class="detail-value">
+                            {location.Street__c}
+                        </div>
+                    </div>
+
+                    <!-- City -->
+                    <div class="detail-row">
+                        <div class="detail-left">
+                            <lightning-icon
+                                icon-name="action:new_custom24"
+                                size="xx-small"
+                                alternative-text="City">
+                            </lightning-icon>
+
+                            <span>City</span>
+                        </div>
+
+                        <div class="detail-value">
+                            {location.City__c}
+                        </div>
+                    </div>
+
+                    <!-- State -->
+                    <div class="detail-row">
+                        <div class="detail-left">
+                            <lightning-icon
+                                icon-name="action:web_link"
+                                size="xx-small"
+                                alternative-text="State">
+                            </lightning-icon>
+
+                            <span>State</span>
+                        </div>
+
+                        <div class="detail-value">
+                            {location.State__c}
+                        </div>
+                    </div>
+
+                    <!-- Postal Code -->
+                    <div class="detail-row">
+                        <div class="detail-left">
+                            <lightning-icon
+                                icon-name="action:map"
+                                size="xx-small"
+                                alternative-text="Postal Code">
+                            </lightning-icon>
+
+                            <span>Postal code</span>
+                        </div>
+
+                        <div class="detail-value">
+                            {location.Postal_Code__c}
+                        </div>
+                    </div>
+
+                    <!-- Verified -->
+                    <div class="detail-row">
+                        <div class="detail-left">
+                            <lightning-icon
+                                icon-name="action:approval"
+                                size="xx-small"
+                                alternative-text="Verified">
+                            </lightning-icon>
+
+                            <span>Verified</span>
+                        </div>
+
+                        <div class="detail-value">
+
+                            <template if:true={location.Verified__c}>
+                                <span class="verified-badge">
+                                    True
+                                </span>
+                            </template>
+
+                            <template if:false={location.Verified__c}>
+                                <span class="not-verified-badge">
+                                    False
+                                </span>
+                            </template>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:false={location}>
+                <div class="empty-message">
+                    Location details not available.
+                </div>
+            </template>
+
+        </lightning-tab>
+
+
+        <!-- ================= ATTENDEES DETAILS ================= -->
+        <lightning-tab label="Attendees Details">
+
+            <div class="tab-content">
 
                 <lightning-button
                     label="New Attendee"
                     variant="brand"
-                    class="slds-m-bottom_small"
                     onclick={handleNewAttendee}>
                 </lightning-button>
 
-                <lightning-datatable
-                    key-field="Id"
-                    data={attendees}
-                    columns={attendeeColumns}>
-                </lightning-datatable>
+                <div class="datatable-container">
+                    <lightning-datatable
+                        key-field="Id"
+                        data={attendees}
+                        columns={attendeeColumns}>
+                    </lightning-datatable>
+                </div>
 
-            </lightning-tab>
+            </div>
 
-        </lightning-tabset>
+        </lightning-tab>
 
-    </lightning-card>
+    </lightning-tabset>
+
+</lightning-card>
 </template>
