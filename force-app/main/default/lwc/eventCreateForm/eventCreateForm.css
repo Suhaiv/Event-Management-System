@@ -7,55 +7,37 @@ lightning-card {
     border-radius: 18px;
 }
 
-/* =========================
-   Form Card
-========================= */
 .form-container {
     background: linear-gradient(180deg, #ffffff 20%, #fdf7f7 80%);
-    padding: 30px;
+    padding: 20px;
     border-radius: 0 0 15px 15px;
     overflow: visible;
     position: relative;
 }
 
-/* =========================
-   Labels
-========================= */
 .customLabel {
     display: block;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 650;
     color: #16325c;
     margin-bottom: 6px;
     letter-spacing: 0.3px;
 }
 
-/* =========================
-   Fields
-========================= */
 .field {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
-/* =========================
-   Left Section
-========================= */
 .left-section {
     border-right: 2px solid #d2d2d2;
     padding-right: 30px;
-    min-height: 340px;
+    min-height: 300px;
 }
 
-/* =========================
-   Right Section
-========================= */
 .right-section {
     padding-left: 30px;
 }
 
-/* =========================
-   Main Card
-========================= */
 .main-card {
     background: #fff;
     border-radius: 18px;
@@ -63,14 +45,11 @@ lightning-card {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* =========================
-   Header
-========================= */
 .header {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 20px 28px;
+    padding: 10px 10px 10px 20px;
     margin: 0;
     border-bottom: 1px solid #ffffff;
     background: #ffc1c1;
@@ -79,17 +58,14 @@ lightning-card {
 
 .header h1 {
     margin: 0;
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 700;
     color: #0d3a7c;
 }
 
-/* =========================
-   Header Icon
-========================= */
 .header-icon {
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: linear-gradient(135deg, #ff5b8a, #ff8a4c);
     display: flex;
@@ -114,9 +90,6 @@ lightning-card {
     transform: rotate(-8deg) scale(1.15);
 }
 
-/* =========================
-   Buttons Area
-========================= */
 .submit-btn {
     display: flex;
     justify-content: center;
@@ -125,13 +98,10 @@ lightning-card {
     margin-top: 35px;
 }
 
-/* =========================
-   Common Button
-========================= */
 .createButton,
 .cancelButton {
-    min-width: 180px;
-    height: 45px;
+    min-width: 150px;
+    height: 42px;
     border: none;
     border-radius: 35px;
     color: #ffffff;
@@ -140,14 +110,11 @@ lightning-card {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 18px;
+    gap: 10px;
     cursor: pointer;
     transition: all 0.25s ease;
 }
 
-/* =========================
-   Create Event Button
-========================= */
 .createButton {
     background: linear-gradient(135deg, #0eb7f9, #0684f3);
 }
@@ -158,9 +125,6 @@ lightning-card {
     background: linear-gradient(135deg, #0284f5, #0066cc);
 }
 
-/* =========================
-   Cancel Button
-========================= */
 .cancelButton {
     background: linear-gradient(135deg, #ff4d4d, #d90000);
 }
@@ -171,14 +135,12 @@ lightning-card {
     background: linear-gradient(135deg, #e60000, #b30000);
 }
 
-/* =========================
-   Icons
-========================= */
 .plus-icon {
     color: #ffd700;
     font-size: 25px;
     font-weight: bold;
     line-height: 1;
+    padding-bottom: 5px;
 }
 
 .cancel-icon {
@@ -188,9 +150,6 @@ lightning-card {
     line-height: 1;
 }
 
-/* =========================
-   Spinner Background
-========================= */
 .spinner-container {
     position: absolute;
     inset: 0;
@@ -201,9 +160,6 @@ lightning-card {
     z-index: 100;
 }
 
-/* =========================
-   Mobile Responsive
-========================= */
 @media screen and (max-width: 768px) {
 
     .left-section {
