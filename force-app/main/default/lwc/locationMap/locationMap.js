@@ -11,24 +11,48 @@ const FIELDS = [
 export default class LocationMap extends LightningElement {
 
     @api recordId;
+
     mapMarkers = [];
 
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     wiredRecord({ error, data }) {
+
         if (data) {
-            const location = data.fields.Location_event__r.value.fields;
+
+            const locationReference =
+                data.fields.Location_event__r;
+
+            // Virtual Event / Location blank
+            if (!locationReference || !locationReference.value) {
+
+                this.mapMarkers = [];
+
+                return;
+            }
+
+            const location =
+                locationReference.value.fields;
 
             this.mapMarkers = [
                 {
                     location: {
-                        Street: location.Street__c.value,
-                        City: location.City__c.value,
-                        State: location.State__c.value,
-                        Country: location.Country__c.value
+                        Street: location.Street__c?.value || '',
+                        City: location.City__c?.value || '',
+                        State: location.State__c?.value || '',
+                        Country: location.Country__c?.value || ''
                     },
                     title: 'Event Location'
                 }
             ];
+
+        } else if (error) {
+
+            console.error(
+                'Location Map Error:',
+                JSON.stringify(error)
+            );
+
+            this.mapMarkers = [];
         }
     }
 }

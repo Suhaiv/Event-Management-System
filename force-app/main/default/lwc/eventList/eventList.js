@@ -95,6 +95,11 @@ export default class EventList extends LightningElement {
             e => (e.Event_Type__c || '').trim().toLowerCase() === 'in-person'
         ).length;
     }
+    get virtualCount() {
+    return this.eventData.filter(
+        e => (e.Event_Type__c || '').trim().toLowerCase() === 'virtual'
+    ).length;
+}
 
     get thisWeekCount() {
 

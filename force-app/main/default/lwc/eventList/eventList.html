@@ -6,10 +6,7 @@
         <div class="upcoming-header">
 
             <div class="upcoming-icon">
-                <lightning-icon
-                    icon-name="standard:event"
-                    size="small"
-                    alternative-text="Upcoming Events">
+                <lightning-icon icon-name="standard:event" size="small" alternative-text="Upcoming Events">
                 </lightning-icon>
             </div>
 
@@ -27,52 +24,77 @@
 
         <div class="event-container">
 
-            <!-- Stats -->
             <div class="stats-row">
-                <div class="stat-card">
-                    <p class="stat-label">Total events</p>
+
+                <!-- Total Events -->
+                <div class="stat-card total-card">
+                    <p class="stat-label">
+                        <lightning-icon icon-name="utility:kanban" size="xx-small">
+                        </lightning-icon>
+                        <span>Total events</span>
+                    </p>
                     <p class="stat-value">{totalEvents}</p>
                 </div>
-                <div class="stat-card">
-                    <p class="stat-label">This week</p>
+
+                <!-- This Week -->
+                <div class="stat-card week-card">
+                    <p class="stat-label">
+                        <lightning-icon  icon-name="utility:clock" size="xx-small">
+                        </lightning-icon>
+                        <span>This week</span>
+                    </p>
                     <p class="stat-value">{thisWeekCount}</p>
                 </div>
-                <div class="stat-card">
-                    <p class="stat-label">In-person</p>
+
+                <!-- In-Person -->
+                <div class="stat-card inperson-card">
+                    <p class="stat-label">
+                        <lightning-icon icon-name="utility:location" size="xx-small">
+                        </lightning-icon>
+                        <span>In-person</span>
+                    </p>
                     <p class="stat-value">{inPersonCount}</p>
                 </div>
+
+                <!-- Virtual -->
+                <div class="stat-card virtual-card">
+                    <p class="stat-label">
+                        <lightning-icon icon-name="utility:video" size="xx-small">
+                        </lightning-icon>
+                        <span>Virtual</span>
+                    </p>
+                    <p class="stat-value">{virtualCount}</p>
+                </div>
+
             </div>
 
             <div class="search-section">
 
-    <div class="search-input">
+                <div class="search-input">
 
-        <div class="search-label">
-            Search Event
-        </div>
+                    <div class="search-label">
+                        Search Event
+                    </div>
 
-        <div class="input-wrapper">
+                    <div class="input-wrapper">
 
-            <lightning-icon
-                icon-name="utility:search"
-                size="x-small"
-                alternative-text="Search">
-            </lightning-icon>
+                        <lightning-icon icon-name="utility:search" size="x-small" alternative-text="Search">
+                        </lightning-icon>
 
-            <input
+                        <input
                 type="search"
                 class="custom-input"
                 placeholder="Search by event name or location"
                 value={searchKey}
                 oninput={handleSearch}>
-            
-
-        </div>
-
-    </div>
 
 
-<button
+                    </div>
+
+                </div>
+
+
+                <button
     class="custom-search-button"
     onclick={searchEvents}>
 
@@ -87,7 +109,7 @@
 
 </button>
 
-</div>
+            </div>
 
             <!-- Event Rows -->
             <div class="table-container">
@@ -95,9 +117,7 @@
                     <div class="event-row" key={event.Id}>
 
                         <div class="row-icon" style={event.iconBg}>
-                            <lightning-icon
-                                icon-name={event.iconName}
-                                size="x-small">
+                            <lightning-icon icon-name={event.iconName} size="x-small">
                             </lightning-icon>
                         </div>
 
