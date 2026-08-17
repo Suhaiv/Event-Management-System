@@ -5,901 +5,241 @@
            applyHtmlTag="false"
            applyBodyTag="false"
            docType="html-5.0">
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8"/>
 <title>Event Invitation</title>
-
-<style>
-:root{
-    --purple:#6C3CE9;
-    --pink:#E63980;
-    --blue:#3B82F6;
-    --green:#10B981;
-    --orange:#F59E0B;
-    --text-dark:#1F1147;
-    --text-muted:#6B7280;
-    --bg-page:#EDEBF3;
-    --card-bg:#FFFFFF;
-}
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:'Segoe UI',Arial,sans-serif;
-    background:#EDEBF3;
-    display:flex;
-    justify-content:center;
-    padding:0;
-    margin:0;
-}
-
-.card{
-    width:100%;
-    max-width:550px;
-    margin:0 auto;
-    background:var(--card-bg);
-    border-radius:0;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(80,40,160,0.10);
-    position:relative;
-}
-
-/* ================= HEADER ================= */
-
-.header{
-    height:90px;
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 28px 0 32px;
-    background:#FFFFFF;
-    position:relative;
-    overflow:hidden;
-    border-bottom:5px solid transparent;
-    border-image:linear-gradient(
-        90deg,
-        #3B82F6,
-        #6C3CE9,
-        #E63980,
-        #F59E0B
-    ) 1;
-}
-
-.logo-wrap{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    position:relative;
-    z-index:5;
-}
-
-.logo-icon{
-    width:52px;
-    height:52px;
-    position:relative;
-    flex-shrink:0;
-}
-
-.logo-text .name{
-    font-weight:800;
-    font-size:20px;
-    color:#17152B;
-    letter-spacing:.3px;
-    line-height:1.1;
-}
-
-.logo-text .tag{
-    margin-top:3px;
-    font-size:10px;
-    color:#6B7280;
-    letter-spacing:.8px;
-    line-height:1.2;
-}
-
-.invited-tag{
-    position:relative;
-    z-index:5;
-    color:#E63980;
-    font-weight:800;
-    font-size:11px;
-    letter-spacing:.4px;
-    margin-right:55px;
-}
-
-/* ================= TOP RIGHT DESIGN ================= */
-
-.ribbon{
-    position:absolute;
-    top:-25px;
-    right:-25px;
-    width:105px;
-    height:105px;
-    z-index:2;
-    background:
-        radial-gradient(
-            circle at 100% 0%,
-            #E63980 0 35%,
-            transparent 36%
-        ),
-        linear-gradient(
-            135deg,
-            #F59E0B 0%,
-            #FF7A00 42%,
-            #E63980 43%,
-            #6C3CE9 75%,
-            #3B82F6 100%
-        );
-    border-radius:0 0 0 100%;
-    transform:rotate(0deg);
-}
-
-.ribbon::after{
-    content:"";
-    position:absolute;
-    right:-10px;
-    bottom:-10px;
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    background:linear-gradient(
-        135deg,
-        #6C3CE9,
-        #3B82F6
-    );
-    opacity:.9;
-}
-
-@media(max-width:600px){
-    .header{
-        height:78px;
-        padding:0 18px;
-    }
-
-    .logo-icon{
-        width:42px;
-        height:42px;
-    }
-
-    .logo-text .name{
-        font-size:16px;
-    }
-
-    .logo-text .tag{
-        font-size:8px;
-    }
-
-    .invited-tag{
-        font-size:9px;
-        margin-right:35px;
-    }
-
-    .ribbon{
-        width:80px;
-        height:80px;
-        top:-18px;
-        right:-18px;
-    }
-}
-
-.body-inner{
-    padding:6px 28px 12px 28px;
-}
-
-.eyebrow{
-    color:var(--purple);
-    font-weight:700;
-    font-size:11px;
-    letter-spacing:1.5px;
-    margin-bottom:4px;
-}
-
-.title-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:4px;
-    min-height:130px;
-}
-
-.title-block{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.event-title{
-    font-size:26px;
-    font-weight:800;
-    background:linear-gradient(90deg,var(--purple),var(--pink));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    line-height:1.2;
-}
-
-.sparkle-wrap{
-    position:relative;
-    width:160px;
-    height:150px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-    margin-right:-10px;
-}
-
-.calendar-badge{
-    width:64px;
-    height:64px;
-    flex-shrink:0;
-    background:#F4F0FF;
-    border-radius:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    z-index:1;
-    box-shadow:0 4px 12px rgba(108,60,233,0.06);
-}
-
-.calendar-badge svg{
-    width:34px;
-    height:34px;
-}
-
-.check-dot{
-    position:absolute;
-    bottom:-4px;
-    right:-4px;
-    width:22px;
-    height:22px;
-    background:var(--blue);
-    border-radius:50%;
-    border:3px solid #fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:2;
-}
-
-.check-dot svg{
-    width:11px;
-    height:11px;
-}
-
-.sparkle{
-    position:absolute;
-    z-index:10;
-    pointer-events:none;
-}
-
-.tagline{
-    font-size:11px;
-    color:var(--text-muted);
-    margin-top:4px;
-}
-
-.divider{
-    height:2px;
-    background:linear-gradient(90deg,var(--purple),transparent);
-    width:60px;
-    margin-bottom:18px;
-}
-
-.greeting{
-    font-size:14px;
-    color:var(--text-dark);
-    margin-bottom:6px;
-}
-
-.greeting b{
-    color:var(--purple);
-}
-
-.desc{
-    font-size:13px;
-    color:var(--text-muted);
-    line-height:1.6;
-    margin-bottom:20px;
-}
-
-.info-table{
-    width:100%;
-    border:1px solid #DDE2EA;
-    border-radius:8px;
-    overflow:hidden;
-    margin-bottom:20px;
-    background:#fff;
-    box-shadow: 0 10px 25px -5px rgba(108, 60, 233, 0.12), 
-                0 8px 10px -6px rgba(0, 0, 0, 0.04);
-}
-
-.info-row{
-    display: flex;
-    align-items: center;
-    min-height: 48px;
-    padding: 0 12px;
-    font-size: 11px;
-    border-bottom: 1px solid #DDE2EA;
-    position: relative;
-}
-
-.info-row:last-child{
-    border-bottom: none;
-}
-
-.info-row.row-purple{
-    background:
-        linear-gradient(
-            to right,
-            #F5F1FE 0%,
-            #F5F1FE 40%,
-            #FFFFFF 40%,
-            #FFFFFF 100%
-        );
-}
-
-.info-row.row-pink{
-    background:
-        linear-gradient(
-            to right,
-            #FDF1F5 0%,
-            #FDF1F5 40%,
-            #FFFFFF 40%,
-            #FFFFFF 100%
-        );
-}
-
-.info-row.row-blue{
-    background:
-        linear-gradient(
-            to right,
-            #EFF5FE 0%,
-            #EFF5FE 40%,
-            #FFFFFF 40%,
-            #FFFFFF 100%
-        );
-}
-
-.info-row.row-green{
-    background:
-        linear-gradient(
-            to right,
-            #F0FBF6 0%,
-            #F0FBF6 40%,
-            #FFFFFF 40%,
-            #FFFFFF 100%
-        );
-}
-
-.info-row .icon-chip{
-    width: 36px;
-    height: 36px;
-    margin-right: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-.info-row.row-purple .icon-chip { background: #EAE2FF; }
-.info-row.row-pink .icon-chip { background: #FCE1EB; }
-.info-row.row-blue .icon-chip { background: #DCE8FF; }
-.info-row.row-green .icon-chip { background: #D3F6E6; }
-
-.info-row .icon-chip svg {
-    width: 20px;
-    height: 20px;
-}
-
-.info-row .info-label{
-    position: static;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    min-width: 70px;
-    background: transparent;
-}
-
-.info-row.row-purple .info-label { color: #8B5CF6; }
-.info-row.row-pink .info-label { color: #E63980; }
-.info-row.row-blue .info-label { color: #3B82F6; }
-.info-row.row-green .info-label { color: #10B981; }
-
-.info-value{
-    color:#151936;
-    font-weight:700;
-    font-size:11px;
-    margin-left: auto;
-    padding-right:12px;
-    text-align:right;
-    white-space:normal;
-    max-width:250px;
-}
-
-.rsvp-btn{
-    position:relative;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:7px;
-    background:linear-gradient(90deg,var(--purple),var(--pink));
-    color:#fff;
-    font-weight:700;
-    font-size:12px;
-    padding:9px 22px;
-    border-radius:8px;
-    margin-bottom:16px;
-    box-shadow:0 6px 15px rgba(230,57,128,.30);
-    text-decoration:none;
-}
-
-.rsvp-calendar-icon{
-    width:16px;
-    height:16px;
-    flex-shrink:0;
-}
-
-.note{
-    display:flex;
-    gap:8px;
-    font-size:11px;
-    color:var(--text-muted);
-    background:#F9F8FD;
-    border-left:3px solid var(--purple);
-    padding:10px 12px;
-    border-radius:6px;
-    margin-bottom:22px;
-    line-height:1.5;
-}
-
-hr.sep{
-    border:none;
-    border-top:1px dashed #E5E2ED;
-    margin-bottom:20px;
-}
-
-.footer-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-}
-.see-you-container{
-    width:30%;
-    text-align:center;
-}
-
-.see-you-image{
-    width:150px;
-    height:100px;
-    display:inline-block;
-}
-.regards{
-    font-size:12px;
-    color:var(--text-muted);
-    line-height:1.6;
-    padding-bottom : 25px;
-}
-
-.regards b{
-    color:var(--text-dark);
-    display:block;
-    font-size:12.5px;
-}
-
-/* ================= FOOTER ================= */
-
-.bottom-strip{
-    width:100%;
-    min-height:105px;
-    background:#F5F3FF;
-    padding:18px 20px;
-    display:flex;
-    align-items:center;
-    font-size:11px;
-    color:#4B5563;
-}
-
-.bottom-strip > div:first-child{
-    width:50%;
-    display:flex;
-    align-items:center;
-    gap:14px;
-    line-height:1.7;
-    white-space:normal;
-}
-
-.bottom-strip > div:first-child::before{
-    content:"🏭";
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:#6C3CE9;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    flex-shrink:0;
-}
-
-.bottom-icons{
-    width:50%;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    padding-left:20px;
-    border-left:2px solid #AAA4CC;
-}
-
-.bottom-icons span{
-    min-height:28px;
-    display:flex;
-    align-items:center;
-    background:transparent;
-    color:#25213F;
-    font-size:11px;
-    font-weight:600;
-    word-break:break-all;
-}
-
-.bottom-icons span:first-child svg{
-    width:24px;
-    height:24px;
-    padding:5px;
-    margin-right:8px;
-    border-radius:50%;
-    background:#EAF3FF;
-    border:1px solid #3B82F6;
-    stroke:#3B82F6;
-    flex-shrink:0;
-}
-
-.bottom-icons span:last-child svg{
-    width:24px;
-    height:24px;
-    padding:5px;
-    margin-right:8px;
-    border-radius:50%;
-    background:#FFF0F5;
-    border:1px solid #E63980;
-    stroke:#E63980;
-    flex-shrink:0;
-}
-
-.bottom-bar{
-    width:100%;
-    height:10px;
-    background:linear-gradient(
-        90deg,
-        #1479E8 0%,
-        #6C3CE9 30%,
-        #E63980 65%,
-        #F59E0B 100%
-    );
-}
-</style>
 </head>
+<body style="margin: 0; padding: 25px 0; background-color: #EDEBF3; font-family: 'Segoe UI', Arial, sans-serif;">
 
-<body>
-<div class="card">
+    <!-- Main Container -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="550" style="max-width: 550px; width: 100%; background-color: #FFFFFF; border-collapse: collapse; margin: 0 auto; box-shadow: 0 10px 30px rgba(80,40,160,0.12);">
+        
+        <!-- Header -->
+        <tr>
+            <td style="padding: 20px 24px; background-color: #FFFFFF;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="left" style="vertical-align: middle;">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <!-- 4-Dot Flower CSS Badge -->
+                                    <td style="padding-right: 12px; vertical-align: middle;">
+                                        <table border="0" cellpadding="2" cellspacing="0" style="background-color: #F4F0FF; padding: 6px; border-radius: 10px;">
+                                            <tr>
+                                                <td style="width: 8px; height: 8px; background-color: #8B5CF6; border-radius: 50%;"></td>
+                                                <td style="width: 8px; height: 8px; background-color: #3B82F6; border-radius: 50%;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 8px; height: 8px; background-color: #F59E0B; border-radius: 50%;"></td>
+                                                <td style="width: 8px; height: 8px; background-color: #E63980; border-radius: 50%;"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <div style="font-size: 18px; font-weight: 800; color: #17152B; line-height: 1.2;">{!companyName}</div>
+                                        <div style="font-size: 9px; font-weight: 700; color: #8C8A9E; letter-spacing: 0.8px; margin-top: 2px;">YOUR BRAND, OUR FUTURE</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="right" style="vertical-align: middle;">
+                            <span style="color: #E63980; font-weight: 800; font-size: 11px; letter-spacing: 0.6px;">YOU'RE INVITED!</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
 
-    <div class="ribbon"></div>
+        <!-- 4-Color Gradient Bar -->
+        <tr>
+            <td style="height: 4px; background: linear-gradient(90deg, #3B82F6 0%, #6C3CE9 35%, #E63980 70%, #F59E0B 100%); line-height: 4px; font-size: 4px;">&nbsp;</td>
+        </tr>
 
-    <!-- ================= HEADER ================= -->
+        <!-- Body Content -->
+        <tr>
+            <td style="padding: 24px 28px 15px 28px;">
+                
+                <!-- Title and Calendar Graphic -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="left" style="vertical-align: middle;">
+                            <div style="color: #6C3CE9; font-weight: 800; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 4px;">INVITATION</div>
+                            <div style="font-size: 26px; font-weight: 900; color: #6C3CE9; line-height: 1.2; margin-bottom: 4px;">{!eventName}</div>
+                            <div style="font-size: 12px; color: #6B7280; font-weight: 600;">{!eventCategory}</div>
+                        </td>
+                        <td align="right" width="90" style="vertical-align: middle;">
+                            <!-- Calendar Graphic Box -->
+                            <table border="0" cellpadding="0" cellspacing="0" style="background-color: #F4F0FF; border: 2px solid #DCD1F8; border-radius: 16px; width: 72px; height: 72px; text-align: center;">
+                                <tr>
+                                    <td align="center" style="vertical-align: middle;">
+                                        <div style="font-size: 28px; line-height: 1;">📅</div>
+                                        <div style="display: inline-block; background-color: #3B82F6; color: #ffffff; border-radius: 50%; width: 14px; height: 14px; font-size: 9px; line-height: 14px; font-weight: bold; margin-top: -6px;">✓</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
 
-    <div class="header">
-        <div class="logo-wrap">
-            <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
-                <path d="M20 20C20 20 12 22 8 18C4 14 6 6 6 6C6 6 14 4 18 8C22 12 20 20 20 20Z" fill="#8B5CF6"/>
-                <path d="M20 20C20 20 28 22 32 18C36 14 34 6 34 6C34 6 26 4 22 8C18 12 20 20 20 20Z" fill="#3B82F6"/>
-                <path d="M20 20C20 20 12 18 8 22C4 26 6 34 6 34C6 34 14 36 18 32C22 28 20 20 20 20Z" fill="#F59E0B"/>
-                <path d="M20 20C20 20 28 18 32 22C36 26 34 34 34 34C34 34 26 36 22 32C18 28 20 20 20 20Z" fill="#E63980"/>
-                <circle cx="20" cy="20" r="5" fill="#fff"/>
-            </svg>
+                <div style="height: 2px; width: 60px; background-color: #6C3CE9; margin: 10px 0 16px 0;"></div>
 
-            <div class="logo-text">
-                <div class="name">{!companyName}</div>
-                <div class="tag">YOUR BRAND, OUR FUTURE</div>
-            </div>
-        </div>
-
-        <div class="invited-tag">YOU'RE INVITED!</div>
-    </div>
-
-    <!-- ================= BODY ================= -->
-
-    <div class="body-inner">
-
-        <div class="title-row">
-            <div class="title-block">
-                <div class="eyebrow">INVITATION</div>
-                <div class="event-title">{!eventName}</div>
-                <div class="tagline">{!eventCategory}</div>
-            </div>
-
-            <!-- CALENDAR BADGE WITH BURST PATTERN -->
-            <div class="sparkle-wrap">
-
-                <svg class="sparkle" style="top:10px;left:74px;width:5px;height:5px;" viewBox="0 0 24 24" fill="#8B5CF6">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-
-                <svg class="sparkle" style="top:18px;left:50px;width:13px;height:13px;" viewBox="0 0 24 24" fill="#F59E0B">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="top:22px;right:38px;width:14px;height:14px;" viewBox="0 0 24 24" fill="#E63980">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="top:28px;right:22px;width:6px;height:6px;" viewBox="0 0 24 24" fill="#3B82F6">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-
-                <svg class="sparkle" style="top:38px;right:34px;width:5px;height:5px;" viewBox="0 0 24 24" fill="#3B82F6">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-
-                <svg class="sparkle" style="top:36px;left:42px;width:12px;height:12px;" viewBox="0 0 24 24" fill="#E63980">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="top:60px;left:20px;width:14px;height:14px;" viewBox="0 0 24 24" fill="#F59E0B">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="top:52px;left:36px;width:6px;height:6px;" viewBox="0 0 24 24" fill="#3B82F6">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-
-                <svg class="sparkle" style="top:74px;left:30px;width:6px;height:6px;" viewBox="0 0 24 24" fill="#E63980">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-
-                <svg class="sparkle" style="top:42px;left:64px;width:11px;height:11px;" viewBox="0 0 24 24" fill="#F59E0B">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="top:56px;left:56px;width:5px;height:5px;" viewBox="0 0 24 24" fill="#E63980">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-
-                <svg class="sparkle" style="top:50px;right:28px;width:13px;height:13px;" viewBox="0 0 24 24" fill="#8B5CF6">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="top:64px;right:24px;width:12px;height:12px;" viewBox="0 0 24 24" fill="#F59E0B">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="top:76px;right:14px;width:12px;height:12px;" viewBox="0 0 24 24" fill="#3B82F6">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="top:88px;right:30px;width:6px;height:6px;" viewBox="0 0 24 24" fill="#F59E0B">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-
-                <svg class="sparkle" style="bottom:52px;left:44px;width:12px;height:12px;" viewBox="0 0 24 24" fill="#3B82F6">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="bottom:40px;left:62px;width:10px;height:10px;" viewBox="0 0 24 24" fill="#E63980">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="bottom:22px;left:42px;width:11px;height:11px;" viewBox="0 0 24 24" fill="#8B5CF6">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <svg class="sparkle" style="bottom:18px;left:56px;width:6px;height:6px;" viewBox="0 0 24 24" fill="#F59E0B">
-                    <circle cx="12" cy="12" r="6"/>
-                </svg>
-
-                <svg class="sparkle" style="bottom:24px;right:38px;width:12px;height:12px;" viewBox="0 0 24 24" fill="#E63980">
-                    <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/>
-                </svg>
-
-                <!-- CALENDAR BADGE -->
-                <div class="calendar-badge">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="5" width="18" height="16" rx="2"
-                              stroke="#6C3CE9" stroke-width="1.6"/>
-                        <path d="M3 9H21"
-                              stroke="#6C3CE9" stroke-width="1.6"/>
-                        <rect x="6" y="12" width="3" height="3" rx="0.5"
-                              fill="#E63980"/>
-                        <rect x="10.5" y="12" width="3" height="3" rx="0.5"
-                              fill="#F59E0B"/>
-                        <rect x="15" y="12" width="3" height="3" rx="0.5"
-                              fill="#3B82F6"/>
-                        <path d="M7 3V6"
-                              stroke="#6C3CE9"
-                              stroke-width="1.6"
-                              stroke-linecap="round"/>
-                        <path d="M17 3V6"
-                              stroke="#6C3CE9"
-                              stroke-width="1.6"
-                              stroke-linecap="round"/>
-                    </svg>
-
-                    <div class="check-dot">
-                        <svg viewBox="0 0 24 24" fill="none">
-                            <path d="M5 13L9 17L19 7"
-                                  stroke="#fff"
-                                  stroke-width="3"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"/>
-                        </svg>
-                    </div>
+                <!-- Greeting & Text -->
+                <div style="font-size: 14px; color: #1F1147; margin-bottom: 8px;">
+                    Dear <strong style="color: #6C3CE9;">{!guestName}</strong>,
+                </div>
+                <div style="font-size: 13px; color: #6B7280; line-height: 1.6; margin-bottom: 20px;">
+                    We cordially invite you to join us for our upcoming session! We would be honored to have you with us.
                 </div>
 
-            </div>
-        </div>
+                <!-- 4-Row Information Card -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #DDE2EA; border-radius: 8px; overflow: hidden; margin-bottom: 20px;">
+                    
+                    <!-- DATE -->
+                    <tr>
+                        <td width="38%" style="background-color: #F5F1FE; padding: 11px 14px; border-bottom: 1px solid #DDE2EA;">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="width: 28px; height: 28px; background-color: #EAE2FF; border-radius: 50%; text-align: center; vertical-align: middle; font-size: 13px;">📅</td>
+                                    <td style="padding-left: 10px; color: #8B5CF6; font-weight: 800; font-size: 11px; letter-spacing: 0.5px;">DATE</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="62%" align="right" style="background-color: #FFFFFF; padding: 11px 16px; color: #151936; font-weight: 700; font-size: 11px; border-bottom: 1px solid #DDE2EA;">
+                            {!eventDate}
+                        </td>
+                    </tr>
 
-        <div class="divider"></div>
+                    <!-- TIME -->
+                    <tr>
+                        <td style="background-color: #FDF1F5; padding: 11px 14px; border-bottom: 1px solid #DDE2EA;">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="width: 28px; height: 28px; background-color: #FCE1EB; border-radius: 50%; text-align: center; vertical-align: middle; font-size: 13px;">⏰</td>
+                                    <td style="padding-left: 10px; color: #E63980; font-weight: 800; font-size: 11px; letter-spacing: 0.5px;">TIME</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="right" style="background-color: #FFFFFF; padding: 11px 16px; color: #151936; font-weight: 700; font-size: 11px; border-bottom: 1px solid #DDE2EA;">
+                            {!eventTime} IST
+                        </td>
+                    </tr>
 
-        <div class="greeting">
-            Dear <b>{!guestName}</b>,
-        </div>
+                    <!-- VENUE -->
+                    <tr>
+                        <td style="background-color: #EFF5FE; padding: 11px 14px; border-bottom: 1px solid #DDE2EA;">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="width: 28px; height: 28px; background-color: #DCE8FF; border-radius: 50%; text-align: center; vertical-align: middle; font-size: 13px;">📍</td>
+                                    <td style="padding-left: 10px; color: #3B82F6; font-weight: 800; font-size: 11px; letter-spacing: 0.5px;">VENUE</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="right" style="background-color: #FFFFFF; padding: 11px 16px; color: #151936; font-weight: 700; font-size: 11px; border-bottom: 1px solid #DDE2EA;">
+                            {!venue}
+                        </td>
+                    </tr>
 
-        <div class="desc">
-            We cordially invite you to join us for [brief description of the event — one or two lines about what it is and why it matters]! We would be honored to have you with us.
-        </div>
+                    <!-- RSVP BY -->
+                    <tr>
+                        <td style="background-color: #F0FBF6; padding: 11px 14px;">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="width: 28px; height: 28px; background-color: #D3F6E6; border-radius: 50%; text-align: center; vertical-align: middle; font-size: 13px;">✉️</td>
+                                    <td style="padding-left: 10px; color: #10B981; font-weight: 800; font-size: 11px; letter-spacing: 0.5px;">RSVP BY</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="right" style="background-color: #FFFFFF; padding: 11px 16px; color: #151936; font-weight: 700; font-size: 11px;">
+                            [RSVP Deadline Date]
+                        </td>
+                    </tr>
+                </table>
 
-        <!-- ================= EVENT INFORMATION ================= -->
+                <!-- RSVP Button -->
+                <table border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 18px;">
+                    <tr>
+                        <td align="center" style="background: linear-gradient(90deg, #6C3CE9, #E63980); border-radius: 8px;">
+                            <a href="{!rsvpUrl}" target="_blank" style="display: inline-block; padding: 11px 24px; color: #FFFFFF; font-size: 12px; font-weight: 800; text-decoration: none;">
+                                📅 &nbsp; RSVP Now
+                            </a>
+                        </td>
+                    </tr>
+                </table>
 
-        <div class="info-table">
+                <!-- Note Callout -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color: #F9F8FD; border-left: 3.5px solid #6C3CE9; border-radius: 6px; margin-bottom: 22px;">
+                    <tr>
+                        <td style="padding: 10px 14px; font-size: 11px; color: #6B7280; line-height: 1.55;">
+                            ℹ️ Kindly confirm your attendance by clicking the button above before the RSVP deadline. Seats are limited, and confirmation ensures your spot is reserved.
+                        </td>
+                    </tr>
+                </table>
 
-            <div class="info-row row-purple">
-                <div class="icon-chip">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="5" width="18" height="16" rx="2"
-                              stroke="#8B5CF6" stroke-width="1.8"/>
-                        <path d="M3 9H21"
-                              stroke="#8B5CF6" stroke-width="1.8"/>
-                    </svg>
-                </div>
-                <div class="info-label">DATE</div>
-                <div class="info-value">{!eventDate}</div>
-            </div>
+                <div style="border-top: 1px dashed #E5E2ED; margin-bottom: 16px;"></div>
 
-            <div class="info-row row-pink">
-                <div class="icon-chip">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="9"
-                                stroke="#E63980" stroke-width="1.8"/>
-                        <path d="M12 7V12L15 14"
-                              stroke="#E63980"
-                              stroke-width="1.8"
-                              stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div class="info-label">TIME</div>
-                <div class="info-value">{!eventTime} IST</div>
-            </div>
+                <!-- Signoff & Envelope -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 10px;">
+                    <tr>
+                        <td align="left" style="vertical-align: bottom;">
+                            <div style="font-size: 12px; color: #6B7280; line-height: 1.6;">
+                                Warm regards,<br/>
+                                <strong style="color: #1F1147; font-size: 13px;">{!organizationName}</strong>
+                            </div>
+                        </td>
+                        <td align="right" style="vertical-align: bottom;">
+                            <div style="font-size: 32px; line-height: 1;">💌</div>
+                            <div style="font-size: 10px; color: #8C8A9E; font-weight: 600; font-style: italic; margin-top: 2px;">See you there!</div>
+                        </td>
+                    </tr>
+                </table>
 
-            <div class="info-row row-blue">
-                <div class="icon-chip">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22Z"
-                              stroke="#3B82F6"
-                              stroke-width="1.8"/>
-                        <circle cx="12" cy="9.5" r="2.3"
-                                stroke="#3B82F6"
-                                stroke-width="1.8"/>
-                    </svg>
-                </div>
-                <div class="info-label">VENUE</div>
-                <div class="info-value">{!venue}</div>
-            </div>
+            </td>
+        </tr>
 
-            <div class="info-row row-green">
-                <div class="icon-chip">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="5" width="18" height="14" rx="2"
-                              stroke="#10B981" stroke-width="1.8"/>
-                        <path d="M4 6L12 13L20 6"
-                              stroke="#10B981"
-                              stroke-width="1.8"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <div class="info-label">RSVP BY</div>
-                <div class="info-value">[RSVP Deadline Date]</div>
-            </div>
+        <!-- Footer Strip -->
+        <tr>
+            <td style="background-color: #F5F3FF; padding: 16px 24px; border-top: 1px solid #EAE6F5;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <!-- Left Details with Circle Badge -->
+                        <td width="50%" align="left" style="vertical-align: middle;">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="width: 36px; height: 36px; background-color: #6C3CE9; border-radius: 50%; text-align: center; vertical-align: middle; font-size: 18px; color: #ffffff;">
+                                        🏢
+                                    </td>
+                                    <td style="padding-left: 10px; font-size: 11px; color: #4B5563; line-height: 1.5;">
+                                        © 2026 {!organizationName}.<br/>
+                                        <span style="color: #6B7280;">{!companyAddress}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
 
-        </div>
+                        <!-- Right Contact Details -->
+                        <td width="50%" align="left" style="padding-left: 18px; border-left: 1.5px solid #AAA4CC; vertical-align: middle;">
+                            <div style="font-size: 11px; color: #25213F; font-weight: 600; margin-bottom: 6px;">
+                                <span style="display: inline-block; width: 18px; height: 18px; background-color: #EAF3FF; border: 1px solid #3B82F6; border-radius: 50%; text-align: center; line-height: 18px; font-size: 10px; margin-right: 6px;">✉</span>
+                                {!supportEmail}
+                            </div>
+                            <div style="font-size: 11px; color: #25213F; font-weight: 600;">
+                                <span style="display: inline-block; width: 18px; height: 18px; background-color: #FFF0F5; border: 1px solid #E63980; border-radius: 50%; text-align: center; line-height: 18px; font-size: 10px; margin-right: 6px;">📞</span>
+                                {!supportPhone}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
 
-        <a href="{!rsvpUrl}" class="rsvp-btn" style="text-decoration:none;">
-            <svg class="rsvp-calendar-icon" width="15" height="15" viewBox="0 0 24 24" fill="none">
-                <rect x="4" y="5" width="16" height="15" rx="2" stroke="#FFFFFF" stroke-width="1.8"/>
-                <path d="M4 9H20" stroke="#FFFFFF" stroke-width="1.8"/>
-                <path d="M8 3V6" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M16 3V6" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M8 13H9" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M12 13H13" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M16 13H17" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
+        <!-- Bottom Color Bar -->
+        <tr>
+            <td style="height: 8px; background: linear-gradient(90deg, #1479E8 0%, #6C3CE9 30%, #E63980 65%, #F59E0B 100%); line-height: 8px; font-size: 8px;">&nbsp;</td>
+        </tr>
 
-            <span>RSVP Now</span>
-        </a>
+    </table>
 
-        <div class="note">
-            ℹ️ Kindly confirm your attendance by clicking the button above before the RSVP deadline. Seats are limited, and confirmation ensures your spot is reserved.
-        </div>
-
-        <hr class="sep"/>
-        <div class="footer-row">
-            <div class="regards">
-                Warm regards,<br/>
-                <b>{!organizationName}</b>
-            </div>
-
-            <div class="see-you-container">
-                <apex:image value="{!URLFOR($Resource.SeeYouThere)}"
-                    styleClass="see-you-image"
-                    alt="See you there"/>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ================= BOTTOM FOOTER ================= -->
-
-    <div class="bottom-strip">
-
-        <div>
-            © 2026 {!organizationName}. All rights reserved.<br/>
-            {!companyAddress}
-        </div>
-
-        <div class="bottom-icons">
-
-            <span>
-                <svg width="11"
-                     height="11"
-                     viewBox="0 0 24 24"
-                     fill="none">
-                    <rect x="3" y="5" width="18" height="14" rx="2"
-                          stroke="#3B82F6"
-                          stroke-width="2"/>
-                    <path d="M4 6L12 13L20 6"
-                          stroke="#3B82F6"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"/>
-                </svg>
-                {!supportEmail}
-            </span>
-
-            <span>
-                <svg width="11"
-                     height="11"
-                     viewBox="0 0 24 24"
-                     fill="none">
-                    <path d="M6 3C5 3 4 4 4 5C4 14 10 20 19 20C20 20 21 19 21 18V16L16 14L14 16C12 15 9 12 8 10L10 8L8 3H6Z"
-                          stroke="#E63980"
-                          stroke-width="1.8"
-                          stroke-linejoin="round"/>
-                </svg>
-                {!supportPhone}
-            </span>
-
-        </div>
-    </div>
-
-    <div class="bottom-bar"></div>
-
-</div>
 </body>
 </html>
 </apex:page>
