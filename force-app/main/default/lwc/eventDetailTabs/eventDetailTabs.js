@@ -1,16 +1,13 @@
 import { LightningElement, api, wire } from 'lwc';
-import { getRecord } from 'lightning/uiRecordApi';
+import { getRecord, updateRecord } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
 import { encodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
 
 import getSpeakers from '@salesforce/apex/EventDetailController.getSpeakers';
 import getLocation from '@salesforce/apex/EventDetailController.getLocation';
 import getAttendees from '@salesforce/apex/EventDetailController.getAttendees';
-
-
-// =====================================================
-// EVENT FIELDS
-// =====================================================
+import EVENT_ID from '@salesforce/schema/Event_Mng__c.Id';
+import STATUS_FIELD from '@salesforce/schema/Event_Mng__c.Status__c';
 
 const EVENT_FIELDS = [
     'Event_Mng__c.Name',
@@ -27,32 +24,18 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
 
     @api recordId;
 
-
-    // =====================================================
-    // EVENT DATA
-    // =====================================================
-
     eventName;
     eventStatus;
     eventStart;
     eventEnd;
     maxSeats;
     organizerName;
-
-
-    // =====================================================
-    // LOCATION
-    // =====================================================
-
     location;
-
-
-    // =====================================================
-    // SPEAKERS
-    // =====================================================
-
     speakers = [];
 
+    get showPublishButton() {
+        return this.eventStatus === 'Created';
+    }
     speakerColumns = [
         {
             label: 'Name',
@@ -71,11 +54,6 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
             fieldName: 'company'
         }
     ];
-
-
-    // =====================================================
-    // ATTENDEES
-    // =====================================================
 
     attendees = [];
 
@@ -98,11 +76,6 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
         }
     ];
 
-
-    // =====================================================
-    // GET EVENT + LOCATION USING LDS
-    // =====================================================
-
     @wire(getRecord, {
         recordId: '$recordId',
         fields: EVENT_FIELDS
@@ -110,10 +83,6 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
     wiredEvent({ data, error }) {
 
         if (data) {
-
-            // ---------------------------------------------
-            // EVENT DETAILS
-            // ---------------------------------------------
 
             this.eventName =
                 data.fields.Name?.value;
@@ -130,19 +99,9 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
             this.maxSeats =
                 data.fields.Max_Seats__c?.value;
 
-
-            // ---------------------------------------------
-            // ORGANIZER
-            // ---------------------------------------------
-
             this.organizerName =
                 data.fields.Organizer__c?.displayValue ||
                 data.fields.Organizer__c?.value;
-
-
-            // ---------------------------------------------
-            // LOCATION
-            // ---------------------------------------------
 
             const locationId =
                 data.fields.Location_event__c?.value;
@@ -187,16 +146,7 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
 
     }
 
-
-    // =====================================================
-    // LOAD SPEAKERS + ATTENDEES
-    // =====================================================
-
     connectedCallback() {
-
-        // ---------------------------------------------
-        // LOAD SPEAKERS
-        // ---------------------------------------------
 
         getSpeakers({
             eventId: this.recordId
@@ -234,11 +184,6 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
                 );
 
             });
-
-
-        // ---------------------------------------------
-        // LOAD ATTENDEES
-        // ---------------------------------------------
 
         getAttendees({
             eventId: this.recordId
@@ -279,10 +224,33 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
 
     }
 
+    handlePublish() {
 
-    // =====================================================
-    // NEW SPEAKER
-    // =====================================================
+        const fields = {};
+
+        fields[EVENT_ID.fieldApiName] = this.recordId;
+        fields[STATUS_FIELD.fieldApiName] = 'Published';
+
+        const recordInput = {
+            fields: fields
+        };
+
+        updateRecord(recordInput)
+            .then(() => {
+
+                // Update UI immediately
+                this.eventStatus = 'Published';
+
+            })
+            .catch(error => {
+
+                console.error(
+                    'Publish Error:',
+                    error
+                );
+
+            });
+    }
 
     handleNewSpeaker() {
 
@@ -318,11 +286,6 @@ export default class EventDetailTabs extends NavigationMixin(LightningElement) {
         });
 
     }
-
-
-    // =====================================================
-    // NEW ATTENDEE
-    // =====================================================
 
     handleNewAttendee() {
 

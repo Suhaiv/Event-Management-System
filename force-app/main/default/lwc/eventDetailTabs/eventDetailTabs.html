@@ -29,18 +29,29 @@
                 <!-- Status -->
                 <div class="detail-row">
                     <div class="detail-left">
-                        <lightning-icon
-                            icon-name="action:share_poll"
-                            size="xx-small"
-                            alternative-text="Status">
+                
+                        <lightning-icon icon-name="action:share_poll" size="xx-small" alternative-text="Status">
                         </lightning-icon>
                         <span>Status</span>
                     </div>
-
-                    <div class="detail-value">
+                
+                
+                    <div class="detail-value status-container">
+                
+                        <!-- Status Badge -->
                         <span class="status-badge">
                             {eventStatus}
                         </span>
+                
+                
+                        <!-- Publish Button -->
+                        <template if:true={showPublishButton}>
+                
+                            <lightning-button label="Publish"  class="publish-btn" variant="neutral" size="small" onclick={handlePublish}>
+                            </lightning-button>
+                
+                        </template>
+                
                     </div>
                 </div>
 
