@@ -72,7 +72,7 @@
     background: #f9d99b;
     color: #5f4200;
 
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
 }
 
@@ -127,4 +127,25 @@
     text-align: center;
     color: #666;
     font-size: 13px;
+}
+.status-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.status-container lightning-button {
+    margin-left: 5px;
+}
+.publish-btn {
+    --slds-c-button-neutral-color-border: #0176d3;
+    --slds-c-button-neutral-color-background: white;
+    --slds-c-button-neutral-color-background-hover: #f3f9ff;
+    --slds-c-button-neutral-text-color: #0176d3;
+
+    --slds-c-button-radius-border: 8px;
+    --slds-c-button-sizing-border: 1px;
+    --slds-c-button-spacing-block-start: 1px;
+    --slds-c-button-spacing-block-end: 1px;
+    --slds-c-button-font-size: 12px;
 }
