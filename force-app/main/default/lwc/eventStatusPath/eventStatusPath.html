@@ -1,0 +1,124 @@
+<template>
+    <div class="status-container">
+
+        <!-- Status Path -->
+        <div class="status-path">
+
+            <template for:each={steps} for:item="step">
+
+                <div
+                    key={step.value}
+                    class={step.className}
+                >
+
+                    <template if:true={step.showCheck}>
+                        <span class="check">✓</span>
+                    </template>
+
+                    <span class="status-label">
+                        {step.label}
+                    </span>
+
+                </div>
+
+            </template>
+
+        </div>
+
+
+        <!-- Cancel Event Button -->
+        <div class="cancel-container">
+
+            <button
+                class="cancel-button"
+                onclick={openCancelModal}
+                disabled={isCancelDisabled}
+            >
+                <span class="cancel-icon">×</span>
+                Cancel Event
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Cancel Event Popup -->
+    <template if:true={showCancelModal}>
+
+        <section
+            class="modal-backdrop"
+            role="dialog"
+            aria-modal="true"
+        >
+
+            <div class="modal">
+
+                <!-- Popup Header -->
+                <div class="modal-header">
+
+                    <h2>Cancel Event</h2>
+
+                    <button
+                        class="close-button"
+                        onclick={closeCancelModal}
+                        title="Close"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <!-- Popup Body -->
+                <div class="modal-body">
+
+                    <label class="reason-label">
+                        Cancellation Reason
+                        <span class="required">*</span>
+                    </label>
+
+                    <textarea
+                        class="reason-input"
+                        placeholder="Enter reason for cancelling this event..."
+                        value={cancelReason}
+                        onchange={handleReasonChange}
+                    ></textarea>
+
+                    <template if:true={showReasonError}>
+
+                        <div class="error-message">
+                            Please enter a cancellation reason.
+                        </div>
+
+                    </template>
+
+                </div>
+
+
+                <!-- Popup Footer -->
+                <div class="modal-footer">
+
+                    <button
+                        class="modal-cancel-button"
+                        onclick={closeCancelModal}
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        class="modal-save-button"
+                        onclick={saveCancellation}
+                    >
+                        Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</template>
