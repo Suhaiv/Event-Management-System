@@ -1,200 +1,174 @@
-import { LightningElement } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { LightningElement } from "lwc";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
-import EVENT_Object from '@salesforce/schema/Event_Mng__c';
-import Name_Object from '@salesforce/schema/Event_Mng__c.Name__c';
-import ORGANIZER_Object from '@salesforce/schema/Event_Mng__c.Organizer__c';
-import START_Object from '@salesforce/schema/Event_Mng__c.Start__c';
-import END_Object from '@salesforce/schema/Event_Mng__c.End__c';
-import LOCATION_Object from '@salesforce/schema/Event_Mng__c.Location_event__c';
-import MAXSEAT_Object from '@salesforce/schema/Event_Mng__c.Max_Seats__c';
-import LIVE_Object from '@salesforce/schema/Event_Mng__c.Live__c';
-import EVENTTYPE_Object from '@salesforce/schema/Event_Mng__c.Event_Type__c';
+import EVENT_Object from "@salesforce/schema/Event_Mng__c";
+import Name_Object from "@salesforce/schema/Event_Mng__c.Name__c";
+import ORGANIZER_Object from "@salesforce/schema/Event_Mng__c.Organizer__c";
+import START_Object from "@salesforce/schema/Event_Mng__c.Start__c";
+import END_Object from "@salesforce/schema/Event_Mng__c.End__c";
+import LOCATION_Object from "@salesforce/schema/Event_Mng__c.Location_event__c";
+import MAXSEAT_Object from "@salesforce/schema/Event_Mng__c.Max_Seats__c";
+import LIVE_Object from "@salesforce/schema/Event_Mng__c.Live__c";
+import EVENTTYPE_Object from "@salesforce/schema/Event_Mng__c.Event_Type__c";
 
 export default class CreateRecordOnPlayers extends LightningElement {
+  objectApiName = EVENT_Object;
 
-    objectApiName = EVENT_Object;
+  fieldName = Name_Object;
+  fieldOrganizer = ORGANIZER_Object;
+  fieldStart = START_Object;
+  fieldEnd = END_Object;
+  fieldLocation = LOCATION_Object;
+  fieldMaxseat = MAXSEAT_Object;
+  fieldLive = LIVE_Object;
+  fieldEventType = EVENTTYPE_Object;
 
-    fieldName = Name_Object;
-    fieldOrganizer = ORGANIZER_Object;
-    fieldStart = START_Object;
-    fieldEnd = END_Object;
-    fieldLocation = LOCATION_Object;
-    fieldMaxseat = MAXSEAT_Object;
-    fieldLive = LIVE_Object;
-    fieldEventType = EVENTTYPE_Object;
+  isLoading = false;
+  isLocationDisabled = false;
+  isLocationRequired = false;
+  isLiveDisabled = false;
+  liveValue = false;
 
-    isLoading = false;
-    isLocationDisabled = false;
-    isLocationRequired = false;
-    isLiveDisabled = false;
-    liveValue = false;
-
-    handleEventTypeChange(event) {
-
+  handleEventTypeChange(event) {
     const eventType = event.detail.value;
 
     const locationField = this.template.querySelector(
-        'lightning-input-field[data-id="location"]'
+      'lightning-input-field[data-id="location"]'
     );
 
     const liveField = this.template.querySelector(
-        'lightning-input-field[data-id="live"]'
+      'lightning-input-field[data-id="live"]'
     );
 
-    if (eventType === 'In-Person') {
+    if (eventType === "In-Person") {
+      // Location enable + required
+      this.isLocationDisabled = false;
+      this.isLocationRequired = true;
 
-        // Location enable + required
-        this.isLocationDisabled = false;
-        this.isLocationRequired = true;
+      // Live enable
+      this.isLiveDisabled = false;
+    } else if (eventType === "Virtual") {
+      // Location clear + disable
+      if (locationField) {
+        locationField.reset();
+      }
 
-        // Live enable
-        this.isLiveDisabled = false;
+      this.isLocationDisabled = true;
+      this.isLocationRequired = false;
 
-    } else if (eventType === 'Virtual') {
+      // Live disable
+      this.isLiveDisabled = true;
 
-        // Location clear + disable
-        if (locationField) {
-            locationField.reset();
-        }
+      // Live unchecked
+      this.liveValue = false;
 
-        this.isLocationDisabled = true;
-        this.isLocationRequired = false;
-
-        // Live disable
-        this.isLiveDisabled = true;
-
-        // Live unchecked
-        this.liveValue = false;
-
-        if (liveField) {
-            liveField.value = false;
-        }
-
+      if (liveField) {
+        liveField.value = false;
+      }
     } else {
+      this.isLocationDisabled = false;
+      this.isLocationRequired = false;
 
-        this.isLocationDisabled = false;
-        this.isLocationRequired = false;
-
-        this.isLiveDisabled = false;
+      this.isLiveDisabled = false;
     }
-}
+  }
 
-    click() {
-
+  click() {
     const fields = [
-        { id: 'name', label: 'Name' },
-        { id: 'organizer', label: 'Organizer' },
-        { id: 'start', label: 'Start' },
-        { id: 'end', label: 'End' },
-        { id: 'maxSeats', label: 'Max Seats' },
-        { id: 'eventType', label: 'Event Type' }
+      { id: "name", label: "Name" },
+      { id: "organizer", label: "Organizer" },
+      { id: "start", label: "Start" },
+      { id: "end", label: "End" },
+      { id: "maxSeats", label: "Max Seats" },
+      { id: "eventType", label: "Event Type" }
     ];
 
     let missingFields = [];
 
-    fields.forEach(item => {
+    fields.forEach((item) => {
+      const field = this.template.querySelector(
+        `lightning-input-field[data-id="${item.id}"]`
+      );
 
-        const field = this.template.querySelector(
-            `lightning-input-field[data-id="${item.id}"]`
-        );
-
-        if (!field || !field.value) {
-            missingFields.push(`${item.label} is required.`);
-        }
+      if (!field || !field.value) {
+        missingFields.push(`${item.label} is required.`);
+      }
     });
 
     if (missingFields.length > 0) {
+      this.showErrorToast(missingFields.join("\n"));
 
-        this.showErrorToast(
-            missingFields.join('\n')
-        );
-
-        return;
+      return;
     }
 
     // Virtual event ke liye Live hamesha false
     const eventTypeField = this.template.querySelector(
-        'lightning-input-field[data-id="eventType"]'
+      'lightning-input-field[data-id="eventType"]'
     );
 
     const liveField = this.template.querySelector(
-        'lightning-input-field[data-id="live"]'
+      'lightning-input-field[data-id="live"]'
     );
 
-    if (
-        eventTypeField &&
-        eventTypeField.value === 'Virtual' &&
-        liveField
-    ) {
-        liveField.value = false;
+    if (eventTypeField && eventTypeField.value === "Virtual" && liveField) {
+      liveField.value = false;
     }
 
     this.isLoading = true;
 
-    const form = this.template.querySelector(
-        'lightning-record-edit-form'
-    );
+    const form = this.template.querySelector("lightning-record-edit-form");
 
     form.submit();
-}
-    showErrorToast(message) {
+  }
+  showErrorToast(message) {
+    this.dispatchEvent(
+      new ShowToastEvent({
+        title: "Error",
+        message: message,
+        variant: "error",
+        mode: "dismissable"
+      })
+    );
+  }
 
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Error',
-                message: message,
-                variant: 'error',
-                mode: 'dismissable'
-            })
-        );
-    }
+  handleSuccess() {
+    this.isLoading = false;
 
-    handleSuccess() {
+    this.dispatchEvent(
+      new ShowToastEvent({
+        title: "Success",
+        message: "Record Created Successfully",
+        variant: "success"
+      })
+    );
 
-        this.isLoading = false;
+    this.isLocationDisabled = false;
+    this.isLocationRequired = false;
 
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: 'Record Created Successfully',
-                variant: 'success'
-            })
-        );
-          
-        this.isLocationDisabled = false;
-        this.isLocationRequired = false;
+    this.isLiveDisabled = false;
+    this.liveValue = false;
 
-        this.isLiveDisabled = false;
-        this.liveValue = false;
+    this.template.querySelectorAll("lightning-input-field").forEach((field) => {
+      field.reset();
+    });
 
-        this.template
-            .querySelectorAll('lightning-input-field')
-            .forEach(field => {
-                field.reset();
-            });
+    window.location.reload();
+  }
 
-        setTimeout(() => {
-            window.location.reload();
-        }, 500);
-    }
+  handleError(event) {
+    this.isLoading = false;
 
-    handleError(event) {
+    this.dispatchEvent(
+      new ShowToastEvent({
+        title: "Error",
+        message: event.detail.detail || event.detail.message,
+        variant: "error",
+        mode: "sticky"
+      })
+    );
+  }
 
-        this.isLoading = false;
-
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Error',
-                message: event.detail.detail || event.detail.message,
-                variant: 'error',
-                mode: 'sticky'
-            })
-        );
-    }
-
-   handleCancel() {
-
+  handleCancel() {
     this.isLoading = false;
 
     this.isLocationDisabled = false;
@@ -203,10 +177,8 @@ export default class CreateRecordOnPlayers extends LightningElement {
     this.isLiveDisabled = false;
     this.liveValue = false;
 
-    this.template
-        .querySelectorAll('lightning-input-field')
-        .forEach(field => {
-            field.reset();
-        });
-}
+    this.template.querySelectorAll("lightning-input-field").forEach((field) => {
+      field.reset();
+    });
+  }
 }
