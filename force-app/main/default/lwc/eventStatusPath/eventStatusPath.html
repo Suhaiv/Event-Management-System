@@ -1,51 +1,58 @@
 <template>
+  <!-- STATUS PATH & ACTION BUTTONS -->
   <div class="status-container">
-    <!-- Status Path -->
+    <!-- Renders dynamic progress steps path -->
     <div class="status-path">
       <template for:each={steps} for:item="step">
         <div key={step.value} class={step.className}>
           <template if:true={step.showCheck}>
             <span class="check">✓</span>
           </template>
-
-          <span class="status-label"> {step.label} </span>
+          <span class="status-label">{step.label}</span>
         </div>
       </template>
     </div>
 
-    <!-- Cancel Event Button -->
+    <!-- Triggers Postpone Event modal -->
+    <div class="postpone-container">
+      <button
+        class="postpone-button"
+        onclick={openPostponeModal}
+        disabled={isPostponeDisabled}
+      >
+        <span class="postpone-icon">↻</span> Postpone Event
+      </button>
+    </div>
+
+    <!-- Triggers Cancel Event modal -->
     <div class="cancel-container">
       <button
         class="cancel-button"
         onclick={openCancelModal}
         disabled={isCancelDisabled}
       >
-        <span class="cancel-icon">×</span>
-        Cancel Event
+        <span class="cancel-icon">×</span> Cancel Event
       </button>
     </div>
   </div>
 
-  <!-- Cancel Event Popup -->
+  <!-- CANCEL EVENT POPUP MODAL -->
   <template if:true={showCancelModal}>
     <section class="modal-backdrop" role="dialog" aria-modal="true">
       <div class="modal">
-        <!-- Popup Header -->
+        <!-- Header -->
         <div class="modal-header">
           <h2>Cancel Event</h2>
-
           <button class="close-button" onclick={closeCancelModal} title="Close">
             ×
           </button>
         </div>
 
-        <!-- Popup Body -->
+        <!-- Body: Reason textarea and error handling -->
         <div class="modal-body">
           <label class="reason-label">
-            Cancellation Reason
-            <span class="required">*</span>
+            Cancellation Reason <span class="required">*</span>
           </label>
-
           <textarea
             class="reason-input"
             placeholder="Enter reason for cancelling this event..."
@@ -58,15 +65,86 @@
           </template>
         </div>
 
-        <!-- Popup Footer -->
+        <!-- Footer -->
         <div class="modal-footer">
           <button class="modal-cancel-button" onclick={closeCancelModal}>
             Cancel
           </button>
-
           <button class="modal-save-button" onclick={saveCancellation}>
             Save
           </button>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <!-- POSTPONE EVENT POPUP MODAL -->
+  <template if:true={showPostponeModal}>
+    <section class="modal-backdrop" role="dialog" aria-modal="true">
+      <div class="modal postpone-modal">
+        <!-- Header -->
+        <div class="modal-header">
+          <h2>Postpone Event</h2>
+          <button
+            class="close-button"
+            onclick={closePostponeModal}
+            title="Close"
+          >
+            ×
+          </button>
+        </div>
+
+        <!-- Body: Record Edit Form for updating event details -->
+        <div class="modal-body">
+          <lightning-record-edit-form
+            object-api-name="Event_Mng__c"
+            record-id={recordId}
+            onsubmit={handlePostponeSubmit}
+            onsuccess={handlePostponeSuccess}
+            onerror={handlePostponeError}
+          >
+            <!-- Event Start Date Field -->
+            <lightning-input-field
+              field-name={START_FIELD}
+              required
+            ></lightning-input-field>
+
+            <!-- Event End Date Field -->
+            <lightning-input-field
+              field-name={END_FIELD}
+              required
+            ></lightning-input-field>
+
+            <!-- Event Location Field -->
+            <lightning-input-field
+              field-name={LOCATION_FIELD}
+              required
+            ></lightning-input-field>
+
+            <!-- Postpone Reason Field -->
+            <lightning-input-field
+              field-name={REASON_FIELD}
+              required
+            ></lightning-input-field>
+
+            <!-- Event Type Field -->
+            <lightning-input-field
+              field-name={EVENT_TYPE_FIELD}
+              required
+            ></lightning-input-field>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="modal-cancel-button"
+                onclick={closePostponeModal}
+              >
+                Cancel
+              </button>
+              <button type="submit" class="modal-submit-button">Submit</button>
+            </div>
+          </lightning-record-edit-form>
         </div>
       </div>
     </section>
