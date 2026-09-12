@@ -1,8 +1,9 @@
 import { LightningElement, api, wire } from "lwc";
+
 import { getRecord, getFieldValue, updateRecord } from "lightning/uiRecordApi";
-import REASON_FIELD from "@salesforce/schema/Event_Mng__c.Reason__c";
 
 import STATUS_FIELD from "@salesforce/schema/Event_Mng__c.Status__c";
+import REASON_FIELD from "@salesforce/schema/Event_Mng__c.Reason__c";
 
 const FIELDS = [STATUS_FIELD, REASON_FIELD];
 
@@ -10,6 +11,7 @@ export default class EventStatusPath extends LightningElement {
   @api recordId;
 
   currentStatus;
+
   showCancelModal = false;
   cancelReason = "";
   showReasonError = false;
@@ -23,19 +25,37 @@ export default class EventStatusPath extends LightningElement {
     "Cancelled"
   ];
 
-  @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
+  // ==========================================
+  // GET EVENT RECORD
+  // ==========================================
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: FIELDS
+  })
   wiredEvent({ data, error }) {
     if (data) {
       this.currentStatus = getFieldValue(data, STATUS_FIELD);
+
+      console.log("Current Status:", this.currentStatus);
     }
+
     if (error) {
       console.error("Error loading Event:", error);
     }
   }
 
+  // ==========================================
+  // NORMALIZE STATUS
+  // ==========================================
+
   normalize(str) {
     return (str || "").trim().toLowerCase();
   }
+
+  // ==========================================
+  // OPEN CANCEL POPUP
+  // ==========================================
 
   openCancelModal() {
     this.showCancelModal = true;
@@ -44,6 +64,11 @@ export default class EventStatusPath extends LightningElement {
 
     this.showReasonError = false;
   }
+
+  // ==========================================
+  // CLOSE CANCEL POPUP
+  // ==========================================
+
   closeCancelModal() {
     this.showCancelModal = false;
 
@@ -52,30 +77,60 @@ export default class EventStatusPath extends LightningElement {
     this.showReasonError = false;
   }
 
+  // ==========================================
+  // REASON CHANGE
+  // ==========================================
+
+  handleReasonChange(event) {
+    this.cancelReason = event.target.value;
+
+    console.log("Reason:", this.cancelReason);
+
+    if (this.cancelReason.trim().length > 0) {
+      this.showReasonError = false;
+    }
+  }
+
+  // ==========================================
+  // SAVE CANCELLATION
+  // ==========================================
+
   async saveCancellation() {
+    const reason = (this.cancelReason || "").trim();
+
+    console.log("Save clicked");
+    console.log("Record Id:", this.recordId);
+    console.log("Reason:", reason);
+
     // Reason required
-    if (!this.cancelReason || !this.cancelReason.trim()) {
+    if (!reason) {
       this.showReasonError = true;
 
       return;
     }
 
     try {
-      const fields = {
-        Id: this.recordId
-      };
+      const fields = {};
+
+      // Record Id
+      fields.Id = this.recordId;
 
       // Status = Cancelled
       fields[STATUS_FIELD.fieldApiName] = "Cancelled";
 
-      // Reason save
-      fields[REASON_FIELD.fieldApiName] = this.cancelReason.trim();
+      // Cancellation Reason
+      fields[REASON_FIELD.fieldApiName] = reason;
 
+      console.log("Fields to update:", JSON.stringify(fields));
+
+      // Update Salesforce Record
       await updateRecord({
         fields: fields
       });
 
-      // Update UI immediately
+      console.log("Event cancelled successfully");
+
+      // Update Path immediately
       this.currentStatus = "Cancelled";
 
       // Close popup
@@ -85,12 +140,24 @@ export default class EventStatusPath extends LightningElement {
 
       this.showReasonError = false;
     } catch (error) {
-      console.error("Error cancelling Event:", error);
+      console.error("ERROR WHILE SAVING:", JSON.stringify(error));
+
+      console.error("ERROR MESSAGE:", error?.body?.message);
     }
   }
+
+  // ==========================================
+  // CANCEL BUTTON DISABLED
+  // ==========================================
+
   get isCancelDisabled() {
     return this.currentStatus === "Cancelled";
   }
+
+  // ==========================================
+  // STATUS PATH
+  // ==========================================
+
   get steps() {
     const currentNorm = this.normalize(this.currentStatus);
 
@@ -98,44 +165,63 @@ export default class EventStatusPath extends LightningElement {
       (status) => this.normalize(status) === currentNorm
     );
 
-    // Agar match hi nahi mila, matlab data abhi load ho raha hai
-    // ya picklist value statusOrder se alag hai — console me warning do
     if (currentIndex === -1 && this.currentStatus) {
       console.warn(
         'Status__c value "' +
           this.currentStatus +
-          '" statusOrder array me nahi mila. Spelling/case check karo.'
+          '" statusOrder mein nahi mila.'
       );
     }
 
     return this.statusOrder.map((status, index) => {
       let className = "step future";
+
       let showCheck = false;
+
       const statusNorm = this.normalize(status);
 
+      // ==================================
+      // CANCELLED
+      // ==================================
+
       if (currentNorm === "cancelled") {
+        const cancelledIndex = this.statusOrder.findIndex(
+          (s) => this.normalize(s) === "cancelled"
+        );
+
         if (statusNorm === "cancelled") {
           className = "step cancelled";
-        } else if (
-          index <
-          this.statusOrder.findIndex((s) => this.normalize(s) === "cancelled")
-        ) {
+        } else if (index < cancelledIndex) {
           className = "step completed";
+
           showCheck = true;
         }
-      } else if (currentNorm === "post poned") {
+      }
+
+      // ==================================
+      // POST PONED
+      // ==================================
+      else if (currentNorm === "post poned") {
+        const postponedIndex = this.statusOrder.findIndex(
+          (s) => this.normalize(s) === "post poned"
+        );
+
         if (statusNorm === "post poned") {
           className = "step postponed";
-        } else if (
-          index <
-          this.statusOrder.findIndex((s) => this.normalize(s) === "post poned")
-        ) {
+        } else if (index < postponedIndex) {
           className = "step completed";
+
           showCheck = true;
         }
-      } else {
+      }
+
+      // ==================================
+      // NORMAL STATUS
+      // ==================================
+      else {
         if (index < currentIndex) {
           className = "step completed";
+
           showCheck = true;
         } else if (index === currentIndex) {
           className = "step active";
@@ -144,8 +230,11 @@ export default class EventStatusPath extends LightningElement {
 
       return {
         label: status,
+
         value: status,
+
         className: className,
+
         showCheck: showCheck
       };
     });
