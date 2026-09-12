@@ -1,107 +1,134 @@
 <template>
-        <div class="header">
-            <div class="header-icon">
-                <lightning-icon icon-name="utility:event" size="small" alternative-text="Event">
-                </lightning-icon>
-            </div>
-        
-            <h1>Create A Event Record</h1>
+  <div class="header">
+    <div class="header-icon">
+      <lightning-icon
+        icon-name="utility:event"
+        size="small"
+        alternative-text="Event"
+      >
+      </lightning-icon>
+    </div>
+
+    <h1>Create A Event Record</h1>
+  </div>
+  <div class="form-container">
+    <template if:true={isLoading}>
+      <lightning-spinner alternative-text="Saving..." size="large">
+      </lightning-spinner>
+    </template>
+
+    <lightning-record-edit-form
+      object-api-name={objectApiName}
+      density="compact"
+      onsuccess={handleSuccess}
+      onerror={handleError}
+    >
+      <div class="form-grid">
+        <!-- Left Side -->
+        <div class="form-column left-section">
+          <div class="field">
+            <label class="customLabel">Name</label>
+            <lightning-input-field
+              field-name={fieldName}
+              data-id="name"
+              variant="label-hidden"
+            >
+            </lightning-input-field>
+          </div>
+
+          <div class="field">
+            <label class="customLabel">Organizer</label>
+            <lightning-input-field
+              field-name={fieldOrganizer}
+              data-id="organizer"
+              variant="label-hidden"
+            >
+            </lightning-input-field>
+          </div>
+
+          <div class="field">
+            <label class="customLabel">Start</label>
+            <lightning-input-field
+              field-name={fieldStart}
+              data-id="start"
+              variant="label-hidden"
+            >
+            </lightning-input-field>
+          </div>
+
+          <div class="field">
+            <label class="customLabel">End</label>
+            <lightning-input-field
+              field-name={fieldEnd}
+              data-id="end"
+              variant="label-hidden"
+            >
+            </lightning-input-field>
+          </div>
         </div>
-        <div class="form-container">
 
-            <template if:true={isLoading}>
-                <lightning-spinner alternative-text="Saving..." size="large">
-                </lightning-spinner>
-            </template>
-            
-            <lightning-record-edit-form object-api-name={objectApiName} density="compact" onsuccess={handleSuccess}
-                onerror={handleError}>
+        <!-- Right Side -->
+        <div class="form-column right-section">
+          <div class="field">
+            <label class="customLabel">Location (Event)</label>
+            <lightning-input-field
+              field-name={fieldLocation}
+              data-id="location"
+              variant="label-hidden"
+              disabled={isLocationDisabled}
+              required={isLocationRequired}
+            >
+            </lightning-input-field>
+          </div>
 
-                <div class="slds-grid slds-wrap slds-gutters">
+          <div class="field">
+            <label class="customLabel">Max Seats</label>
+            <lightning-input-field
+              field-name={fieldMaxseat}
+              data-id="maxSeats"
+              variant="label-hidden"
+            >
+            </lightning-input-field>
+          </div>
 
-                    <!-- Left Side -->
-                    <div class="slds-col slds-size_1-of-2 left-section">
+          <div class="field">
+            <label class="customLabel">Event Type</label>
+            <lightning-input-field
+              field-name={fieldEventType}
+              data-id="eventType"
+              variant="label-hidden"
+              onchange={handleEventTypeChange}
+            >
+            </lightning-input-field>
+          </div>
 
-                    <div class="field">
-                        <label class="customLabel">Name</label>
-                        <lightning-input-field field-name={fieldName} data-id="name" variant="label-hidden">
-                        </lightning-input-field>
-                    </div>
-                    
-                    <div class="field">
-                        <label class="customLabel">Organizer</label>
-                        <lightning-input-field field-name={fieldOrganizer} data-id="organizer" variant="label-hidden">
-                        </lightning-input-field>
-                    </div>
-                    
-                    <div class="field">
-                        <label class="customLabel">Start</label>
-                        <lightning-input-field field-name={fieldStart} data-id="start" variant="label-hidden">
-                        </lightning-input-field>
-                    </div>
-                    
-                    <div class="field">
-                        <label class="customLabel">End</label>
-                        <lightning-input-field field-name={fieldEnd} data-id="end" variant="label-hidden">
-                        </lightning-input-field>
-                    </div>
-
-                    </div>
-                    
-                    <!-- Right Side -->
-                    <div class="slds-col slds-size_1-of-2  right-section">
-
-                        <div class="field">
-                            <label class="customLabel">Location (Event)</label>
-                            <lightning-input-field field-name={fieldLocation} data-id="location" variant="label-hidden" disabled={isLocationDisabled} required={isLocationRequired}>
-                            </lightning-input-field>
-                        </div>
-                        
-                        <div class="field">
-                            <label class="customLabel">Max Seats</label>
-                            <lightning-input-field field-name={fieldMaxseat} data-id="maxSeats" variant="label-hidden">
-                            </lightning-input-field>
-                        </div>
-                        
-                        <div class="field">
-                            <label class="customLabel">Event Type</label>
-                            <lightning-input-field field-name={fieldEventType} data-id="eventType" variant="label-hidden" onchange={handleEventTypeChange}>
-                            </lightning-input-field>
-                        </div>
-                        
-                        <div class="field">
-                            <label class="customLabel">Live</label>
-                            <lightning-input-field field-name={fieldLive} variant="label-hidden" data-id="live" disabled={isLiveDisabled} value={liveValue}>
-                            </lightning-input-field>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="submit-btn">
-                
-                    <!-- Cancel Button -->
-                    <button
-                        type="button"
-                        class="cancelButton"
-                        onclick={handleCancel}>
-                        <span class="cancel-icon">×</span>
-                        <span>Cancel</span>
-                    </button>
-                
-                    <!-- Create Event Button -->
-                    <button
-                        type="button"
-                        class="createButton"
-                        onclick={click}>
-                        <span class="plus-icon">+</span>
-                        <span>Create Event</span>
-                    </button>
-                
-                </div>
-
-            </lightning-record-edit-form>
-
+          <div class="field">
+            <label class="customLabel">Live</label>
+            <lightning-input-field
+              field-name={fieldLive}
+              variant="label-hidden"
+              data-id="live"
+              disabled={isLiveDisabled}
+              value={liveValue}
+            >
+            </lightning-input-field>
+          </div>
         </div>
+      </div>
+
+      <div class="submit-btn">
+        <!-- Cancel Button -->
+        <button type="button" class="cancelButton" onclick={handleCancel}>
+          <span class="cancel-icon">×</span>
+          <span>Cancel</span>
+        </button>
+
+        <!-- Create Event Button -->
+        <button type="button" class="createButton" onclick={click}>
+          <span class="plus-icon">+</span>
+          <span>Create Event</span>
+        </button>
+      </div>
+    </lightning-record-edit-form>
+  </div>
 </template>

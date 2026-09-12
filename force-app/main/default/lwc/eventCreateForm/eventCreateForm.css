@@ -1,195 +1,240 @@
 :host {
-    display: block;
+  display: block;
+  box-sizing: border-box;
 }
 
 lightning-card {
-    overflow: visible;
-    border-radius: 18px;
+  overflow: visible;
+  border-radius: 18px;
 }
 
 .form-container {
-    background: linear-gradient(180deg, #ffffff 20%, #fdf7f7 80%);
-    padding: 20px;
-    border-radius: 0 0 15px 15px;
-    overflow: visible;
-    position: relative;
+  background: linear-gradient(180deg, #ffffff 20%, #fdf7f7 80%);
+  padding: clamp(16px, 3vw, 28px);
+  border-radius: 0 0 15px 15px;
+  overflow: visible;
+  position: relative;
 }
 
 .customLabel {
-    display: block;
-    font-size: 12px;
-    font-weight: 650;
-    color: #16325c;
-    margin-bottom: 6px;
-    letter-spacing: 0.3px;
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+  color: #16325c;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
 }
 
 .field {
-    margin-bottom: 20px;
+  min-width: 0;
+  margin-bottom: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 20px 28px;
+}
+
+.form-column {
+  min-width: 0;
 }
 
 .left-section {
-    border-right: 2px solid #d2d2d2;
-    padding-right: 30px;
-    min-height: 300px;
+  border-right: 2px solid #d2d2d2;
+  padding-right: 28px;
+  min-height: 300px;
 }
 
 .right-section {
-    padding-left: 30px;
+  padding-left: 28px;
 }
 
 .main-card {
-    background: #fff;
-    border-radius: 18px;
-    overflow: visible;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  border-radius: 18px;
+  overflow: visible;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 10px 10px 10px 20px;
-    margin: 0;
-    border-bottom: 1px solid #ffffff;
-    background: #ffc1c1;
-    border-radius: 18px 18px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 10px 10px 20px;
+  margin: 0;
+  border-bottom: 1px solid #ffffff;
+  background: #ffc1c1;
+  border-radius: 18px 18px 0 0;
 }
 
 .header h1 {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 700;
-    color: #0d3a7c;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0d3a7c;
 }
 
 .header-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ff5b8a, #ff8a4c);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 8px 20px rgba(255, 91, 138, 0.35);
-    transition: all 0.35s ease;
-    cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff5b8a, #ff8a4c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(255, 91, 138, 0.35);
+  transition: all 0.35s ease;
+  cursor: pointer;
 }
 
 .header-icon:hover {
-    transform: translateY(-5px) scale(1.12) rotate(8deg);
-    box-shadow: 0 15px 35px rgba(255, 91, 138, 0.5);
-    background: linear-gradient(135deg, #ff416c, #ff9a44);
+  transform: translateY(-5px) scale(1.12) rotate(8deg);
+  box-shadow: 0 15px 35px rgba(255, 91, 138, 0.5);
+  background: linear-gradient(135deg, #ff416c, #ff9a44);
 }
 
 .header-icon lightning-icon {
-    transition: transform 0.35s ease;
+  transition: transform 0.35s ease;
 }
 
 .header-icon:hover lightning-icon {
-    transform: rotate(-8deg) scale(1.15);
+  transform: rotate(-8deg) scale(1.15);
 }
 
 .submit-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .createButton,
 .cancelButton {
-    min-width: 150px;
-    height: 42px;
-    border: none;
-    border-radius: 35px;
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: all 0.25s ease;
+  min-width: 140px;
+  padding: 0 20px;
+  height: 42px;
+  border: none;
+  border-radius: 35px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .createButton {
-    background: linear-gradient(135deg, #0eb7f9, #0684f3);
+  background: linear-gradient(135deg, #0eb7f9, #0684f3);
 }
 
 .createButton:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(1, 118, 211, 0.35);
-    background: linear-gradient(135deg, #0284f5, #0066cc);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(1, 118, 211, 0.35);
+  background: linear-gradient(135deg, #0284f5, #0066cc);
 }
 
 .cancelButton {
-    background: linear-gradient(135deg, #ff4d4d, #d90000);
+  background: linear-gradient(135deg, #ff4d4d, #d90000);
 }
 
 .cancelButton:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(217, 0, 0, 0.35);
-    background: linear-gradient(135deg, #e60000, #b30000);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(217, 0, 0, 0.35);
+  background: linear-gradient(135deg, #e60000, #b30000);
 }
 
 .plus-icon {
-    color: #ffd700;
-    font-size: 25px;
-    font-weight: bold;
-    line-height: 1;
-    padding-bottom: 5px;
+  color: #ffd700;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 1;
+  padding-bottom: 5px;
 }
 
 .cancel-icon {
-    color: #ffffff;
-    font-size: 25px;
-    font-weight: bold;
-    line-height: 1;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .spinner-container {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
+  .form-container {
+    padding: 16px;
+  }
 
-    .left-section {
-        border-right: none;
-        border-bottom: 1px solid #d8dde6;
-        padding-right: 0;
-        padding-bottom: 20px;
-        min-height: auto;
-    }
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 
-    .right-section {
-        padding-left: 0;
-        padding-top: 20px;
-    }
+  .left-section {
+    border-right: none;
+    border-bottom: 1px solid #d8dde6;
+    padding-right: 0;
+    padding-bottom: 20px;
+    min-height: auto;
+  }
 
-    .header h1 {
-        font-size: 24px;
-    }
+  .right-section {
+    padding-left: 0;
+    padding-top: 20px;
+  }
 
-    .form-container {
-        padding: 20px;
-    }
+  .header h1 {
+    font-size: 20px;
+  }
 
-    .submit-btn {
-        flex-direction: column;
-    }
+  .submit-btn {
+    flex-direction: column;
+  }
 
-    .createButton,
-    .cancelButton {
-        width: 100%;
-        max-width: 250px;
-    }
+  .createButton,
+  .cancelButton {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    gap: 10px;
+    padding: 12px 16px;
+  }
+
+  .header-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
+
+  .header h1 {
+    font-size: 18px;
+  }
+
+  .submit-btn {
+    align-items: stretch;
+  }
+
+  .createButton,
+  .cancelButton {
+    min-width: 0;
+    width: 100%;
+  }
 }
